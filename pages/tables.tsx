@@ -11,55 +11,35 @@ import { listTables } from "../src/graphql/queries";
 import { useRouter } from "next/dist/client/router";
 import LeftMenu from "../components/Layout/LeftMenu";
 import TableUi from "../components/TableUi";
+import NewTable from "../components/Modals/NewTable";
 
 const Tables = () => {
   const [tables, setTables] = useState<Table[]>([]);
+  const [open, setOpen] = useState(false)
   const router = useRouter();
 
-  const createNewTable = async () => {
-    const newTable: CreateTableInput = {
-      full: false,
-      number: tables.length + 1,
-      tenantId: "2",
-    };
-    console.log("table", newTable);
-
-    const created: any = await API.graphql({
-      query: createTable,
-      variables: { input: newTable },
-      authMode: "API_KEY",
-      authToken: "da2-hsyo6k652veqdc7zkjxctqpdqi",
-    });
-
-    setTables(tables.concat(created.data.createTable));
-  };
 
   const getTables = async () => {
-    const tenantId: ModelIDInput = {
-      eq: "2",
-    };
-
     const item: any = await API.graphql<ListTablesQuery>(
-      graphqlOperation(listTables, {
-        filter: {
-          tenantId,
-        },
-      })
+      graphqlOperation(listTables)
     );
     setTables(item.data.listTables.items);
   };
 
   useEffect(() => {
     getTables();
-  }, []);
+  }, [open]);
+
+ 
 
   return (
     <div className="">
       {/* tables */}
+      <NewTable open={open} setOpen={setOpen}/>
       <div className="grid grid-cols-8 p-4 gap-10">
         <div
           className={`w-20 h-20 bg-gray-400 shadow-md rounded-md cursor-pointer border-2 border-dashed`}
-          onClick={createNewTable}
+          onClick={() => setOpen(true)}
         >
           <p
             className={`flex items-center justify-center h-full text-gray-500 font-medium text-2xl`}
@@ -70,7 +50,14 @@ const Tables = () => {
 
         {tables.length > 0 &&
           tables.map((table) => (
-            <div key={table.id} onClick={() => router.push(`/menu?tableId=${table.id}&tableNumber=${table.number}`)}>
+            <div
+              key={table.id}
+              onClick={() =>
+                router.push(
+                  `/menu?tableId=${table.id}&tableNumber=${table.number}`
+                )
+              }
+            >
               <TableUi full={table.full} number={table.number} />
             </div>
           ))}
@@ -84,4 +71,3 @@ Tables.getLayout = function getLayout(page: ReactElement) {
 };
 
 export default Tables;
-

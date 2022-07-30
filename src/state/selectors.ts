@@ -17,6 +17,7 @@ export const SaveProductAtom = selector({
 
     console.warn(newValue, currentOrder.products);
 
+    
     try {
       const editedOrder: Order = {
         ...currentOrder,

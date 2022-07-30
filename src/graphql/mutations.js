@@ -1,4 +1,3 @@
-/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
@@ -16,29 +15,6 @@ export const createIngredient = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -70,29 +46,6 @@ export const updateIngredient = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -124,29 +77,6 @@ export const deleteIngredient = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -180,10 +110,6 @@ export const createCategory = /* GraphQL */ `
           image
           description
           categoryID
-          Ingredients {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version
@@ -217,10 +143,6 @@ export const updateCategory = /* GraphQL */ `
           image
           description
           categoryID
-          Ingredients {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version
@@ -254,10 +176,6 @@ export const deleteCategory = /* GraphQL */ `
           image
           description
           categoryID
-          Ingredients {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version
@@ -292,29 +210,6 @@ export const createProduct = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -349,29 +244,6 @@ export const updateProduct = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -406,29 +278,6 @@ export const deleteProduct = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -463,11 +312,6 @@ export const createTable = /* GraphQL */ `
           total
           status
           tableID
-          products {
-            id
-            notes
-            qty
-          }
           createdAt
           updatedAt
           _version
@@ -502,11 +346,6 @@ export const updateTable = /* GraphQL */ `
           total
           status
           tableID
-          products {
-            id
-            notes
-            qty
-          }
           createdAt
           updatedAt
           _version
@@ -541,11 +380,6 @@ export const deleteTable = /* GraphQL */ `
           total
           status
           tableID
-          products {
-            id
-            notes
-            qty
-          }
           createdAt
           updatedAt
           _version
@@ -649,16 +483,6 @@ export const createProductIngredient = /* GraphQL */ `
         name
         qty
         products {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -676,16 +500,6 @@ export const createProductIngredient = /* GraphQL */ `
         description
         categoryID
         Ingredients {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -717,16 +531,6 @@ export const updateProductIngredient = /* GraphQL */ `
         name
         qty
         products {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -744,16 +548,6 @@ export const updateProductIngredient = /* GraphQL */ `
         description
         categoryID
         Ingredients {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -785,16 +579,6 @@ export const deleteProductIngredient = /* GraphQL */ `
         name
         qty
         products {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -812,16 +596,6 @@ export const deleteProductIngredient = /* GraphQL */ `
         description
         categoryID
         Ingredients {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }

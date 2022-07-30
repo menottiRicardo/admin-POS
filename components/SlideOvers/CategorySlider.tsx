@@ -2,23 +2,20 @@
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
-import { CreateCategoryInput } from "../../src/API";
 import { createCategory } from "../../src/graphql/mutations";
 import { API } from "aws-amplify";
+import { CreateCategoryInput } from "../../src/API";
 
 export default function CategorySlider({
   open,
   setOpen,
-  
 }: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  
 }) {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const createCategoryGraph = async () => {
     const newCategory: CreateCategoryInput = {
-      tenantId: "2",
       name,
     };
 
@@ -26,7 +23,7 @@ export default function CategorySlider({
       query: createCategory,
       variables: { input: newCategory },
     });
-    setOpen(false)
+    setOpen(false);
   };
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -91,7 +88,12 @@ export default function CategorySlider({
                           onChange={(e) => setName(e.target.value)}
                           className="bg-white border rounded-md px-2 py-3 w-full pl-3"
                         />
-                        <button className="p-3 bg-primary-300 rounded-md text-white font-medium mt-4" onClick={createCategoryGraph}>Crear</button>
+                        <button
+                          className="p-3 bg-primary-300 rounded-md text-white font-medium mt-4"
+                          onClick={createCategoryGraph}
+                        >
+                          Crear
+                        </button>
                       </div>
                       {/* /End replace */}
                     </div>

@@ -1,0 +1,54 @@
+type ProductsOrdered {
+  id: String
+  notes: String
+  qty: String
+}
+
+type Ingredient @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  qty: Int
+  products: [Product] @manyToMany(relationName: "ProductIngredient")
+}
+
+type Category @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  Products: [Product] @hasMany(indexName: "byCategory", fields: ["id"])
+}
+
+type Product @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  price: Float
+  image: String
+  description: String
+  categoryID: ID! @index(name: "byCategory")
+  Ingredients: [Ingredient] @manyToMany(relationName: "ProductIngredient")
+}
+
+type Table @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  full: Boolean
+  number: Int
+  seats: String
+  Orders: [Order] @hasMany(indexName: "byTable", fields: ["id"])
+}
+
+enum Status {
+  CREATED
+  ORDERED
+  PREPARED
+  PAID
+  CANCELLED
+}
+
+type Order @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  total: Float
+  status: Status
+  tableID: ID! @index(name: "byTable")
+  products: [ProductsOrdered]
+}
+ 

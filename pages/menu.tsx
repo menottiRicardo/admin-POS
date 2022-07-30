@@ -20,21 +20,21 @@ const getProducts = async (
       return products;
 
     default:
-      const newList = products.filter((product) => product.categoryProductsId === id);
+      const newList = products.filter((product) => product.categoryID === id);
       return newList;
   }
 };
 
 const Table = ({ categories, products }: any) => {
+  console.log(categories);
   const [selected, setSelected] = useState("999");
-  const [productList, setProductsList] = useState<ProductType[]>([]);
+  const [productList, setProductsList] = useState<ProductType[]>(products);
   const setProducts = useSetRecoilState(ResProducts);
 
-  
   useEffect(() => {
     const loadProducts = async () => {
       const newProducts = await getProducts(selected, products);
-     
+
       setProductsList(newProducts);
     };
     loadProducts();
@@ -43,10 +43,11 @@ const Table = ({ categories, products }: any) => {
   useEffect(() => {
     setProducts(products);
   }, []);
+  
   return (
-    <div className="flex w-full pl-2">
+    <div className="flex w-full pl-3">
       <div className="w-3/4 ">
-        <div className="flex mt-2 p-4 overflow-x-auto ">
+        <div className="flex mt-2 py-4 overflow-x-auto ">
           <MenuCategory
             title="Todo"
             icon={<BiFoodMenu size={"1.5em"} />}
@@ -70,10 +71,7 @@ const Table = ({ categories, products }: any) => {
         <div className="overflow-scroll h-[42rem] w-full">
           <div className="grid grid-cols-3">
             {productList.map((product: ProductType) => (
-              <Product
-                key={product.id}
-                product={product}
-              />
+              <Product key={product.id} product={product} />
             ))}
           </div>
         </div>
@@ -85,32 +83,18 @@ const Table = ({ categories, products }: any) => {
   );
 };
 
-export async function getServerSideProps({ req }: any) {
-  const tenantId: ModelIDInput = {
-    eq: "2",
-  };
-
+export async function getStaticProps({ req }: any) {
   const SSR = withSSRContext({ req });
 
   const rawCategory: any = await SSR.API.graphql(
-    graphqlOperation(listCategories, {
-      filter: {
-        tenantId,
-      },
-    })
+    graphqlOperation(listCategories)
   );
   const categories = await rawCategory.data.listCategories.items;
 
-  const rawProduct: any = await API.graphql(
-    graphqlOperation(listProducts, {
-      filter: {
-        tenantId,
-      },
-    })
-  );
+  const rawProduct: any = await SSR.API.graphql(graphqlOperation(listProducts));
 
   const products = await rawProduct.data.listProducts.items;
-
+  console.log(products);
   return {
     props: {
       categories,

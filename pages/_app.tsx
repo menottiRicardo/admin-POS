@@ -20,7 +20,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <Authenticator signUpAttributes={["zoneinfo"]}>
+    <Authenticator signUpAttributes={["phone_number"]}>
       {({ signOut, user }) => (
         <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
       )}

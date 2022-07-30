@@ -1,5 +1,6 @@
 import { atom } from "recoil";
-import { Order, OrderProducts, Product } from "../API";
+import { Order, Product } from "../API";
+import { ProductsOrdered } from "../models";
 export type orderType = {
   name: string;
   id: number;
@@ -12,12 +13,12 @@ export const ordersAtom = atom({
 
 export const OrderProducstAtom = atom({
   key: "OrderProducstAtom",
-  default: {} as OrderProducts
+  default: [] as ProductsOrdered[]
 })
 
 export const ProductListAtom = atom({
   key: "ProductListAtom",
-  default: [] as Product[]
+  default: [] as ProductsOrdered[]
 });
 
 export const currentOrderAtom = atom({

@@ -12,18 +12,19 @@ const SettingProduct = ({ prod }: any) => {
   useEffect(() => {
     setPhoto();
   }, [prod.image]);
+
   return (
     <div className="bg-white shadow-md rounded-md w-48 h-44" key={prod.id}>
       {/* image */}
 
       {prod.image !== "" ? (
         <div className="h-28 w-48 bg-gray-400 rounded-t-md relative">
-        <img
-          src={productImage ?? ""}
-          className="rounded-t-md"
-          style={{ objectFit: "fill", width: "20rem", height: "7rem" }}
-        />
-      </div>
+          <img
+            src={productImage ?? ""}
+            className="rounded-t-md border-0"
+            style={{ objectFit: "fill", width: "20rem", height: "7rem" }}
+          />
+        </div>
       ) : (
         <div className="h-28 w-48 bg-gray-400 rounded-t-md relative"></div>
       )}

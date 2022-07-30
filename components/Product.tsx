@@ -1,12 +1,15 @@
-import { API, Storage } from "aws-amplify";
+import { API } from "aws-amplify";
 import { useEffect, useState } from "react";
-import { AmplifyS3Image } from "@aws-amplify/ui-react/legacy";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { CreateOrderProductsInput, Product as ProductType } from "../src/API";
-import { createOrderProducts } from "../src/graphql/mutations";
+import {
+  Product as ProductType,
+  ProductsOrdered,
+  UpdateOrderInput,
+} from "../src/API";
+import { updateOrder } from "../src/graphql/mutations";
+
 import { currentOrderAtom, OrderProducstAtom } from "../src/state/atoms";
 import { SaveProductAtom } from "../src/state/selectors";
-import Image from "next/image";
 interface ProductProps {
   product: ProductType;
 }
@@ -30,31 +33,52 @@ const Product = ({ product }: ProductProps) => {
   };
 
   const addNewProduct = async () => {
-    if (orderProductAtom.id === undefined) {
-      const createNewRelation: CreateOrderProductsInput = {
-        orderID: currentOrder.id,
-        productID: product.id,
+    if (currentOrder.id === undefined) return;
+    if (currentOrder.products === null) {
+      const newProduct: any = {
+        id: product.id,
+        notes: "",
+        qty: "1",
+      };
+      const createNewRelation = {
+        id: currentOrder.id,
+        products: [newProduct],
       };
 
       const created: any = await API.graphql({
-        query: createOrderProducts,
+        query: updateOrder,
         variables: { input: createNewRelation },
       });
-      saveNewProduct(created.data.createOrderProducts);
 
-      setAdd(false);
+      return;
     }
+
+    const checkIfThere: any = currentOrder.products?.filter(
+      (prod) => prod?.id === product.id
+    );
+
+    if (checkIfThere?.length > 0) return;
+
+    const newProduct: any = {
+      id: product.id,
+      notes: "",
+      qty: "1",
+    };
+
+    const newArray: any = currentOrder.products;
+
+    const createNewRelation: UpdateOrderInput = {
+      id: currentOrder.id,
+      products: newProduct,
+    };
+
+    const created: any = await API.graphql({
+      query: updateOrder,
+      variables: { input: createNewRelation },
+    });
+
+    setAdd(false);
   };
-
-  async function setPhoto() {
-    const s3Image = await Storage.get(image as string);
-    const req = new Request(s3Image);
-    setProductImage(req.url);
-  }
-
-  useEffect(() => {
-    setPhoto();
-  }, [image]);
 
   return (
     <div
@@ -64,7 +88,7 @@ const Product = ({ product }: ProductProps) => {
       onClick={open}
     >
       {/* image */}
-      {image !== "" ? (
+      {/* {image !== "" ? (
         <div className="h-28 w-48 bg-gray-400 rounded-t-md relative">
           <img
             src={productImage ?? ""}
@@ -72,9 +96,9 @@ const Product = ({ product }: ProductProps) => {
             style={{ objectFit: "fill", width: "20rem", height: "7rem" }}
           />
         </div>
-      ) : (
-        <div className="h-28 w-48 bg-gray-400 rounded-t-md relative"></div>
-      )}
+      ) : ( */}
+      <div className="h-28 w-48 bg-gray-400 rounded-t-md relative"></div>
+      {/* )} */}
 
       {/* )} */}
 

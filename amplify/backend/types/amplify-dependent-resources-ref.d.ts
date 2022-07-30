@@ -1,32 +1,25 @@
 export type AmplifyDependentResourcesAttributes = {
-    "function": {
-        "webb613ffeePostConfirmation": {
-            "Name": "string",
-            "Arn": "string",
-            "LambdaExecutionRole": "string",
-            "Region": "string"
+    "api": {
+        "posbackend": {
+            "GraphQLAPIKeyOutput": "string",
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
         }
     },
     "auth": {
-        "webb613ffee": {
+        "posbackend": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",
             "UserPoolArn": "string",
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
-            "AppClientID": "string"
-        }
-    },
-    "api": {
-        "admin": {
-            "GraphQLAPIKeyOutput": "string",
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
+            "AppClientID": "string",
+            "CreatedSNSRole": "string"
         }
     },
     "storage": {
-        "images": {
+        "s3posbackendstorage": {
             "BucketName": "string",
             "Region": "string"
         }

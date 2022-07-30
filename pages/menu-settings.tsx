@@ -1,55 +1,31 @@
-import { API, graphqlOperation, Storage } from "aws-amplify";
-import image from "next/image";
+import { DataStore } from "aws-amplify";
 import React, { ReactElement, useEffect, useState } from "react";
 import LeftMenu from "../components/Layout/LeftMenu";
 import NewProduct from "../components/Modals/NewProduct";
-import Product from "../components/Product";
 import SettingProduct from "../components/SettingProduct";
 import CategorySlider from "../components/SlideOvers/CategorySlider";
-import { Category, ModelIDInput, Product as ProductType } from "../src/API";
-import { listCategories, listProducts } from "../src/graphql/queries";
+import { Category as CategoryType, Product as ProductType } from "../src/API";
+
+import { Category, Product } from "../src/models";
 
 const MenuSettings = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryType[]>([]);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [openCategorySlider, setOpenCategorySlider] = useState<boolean>(false);
   const [openNewProduct, setOpenNewProduct] = useState<boolean>(false);
 
-  const getCategories = async () => {
-    const tenantId: ModelIDInput = {
-      eq: "2",
-    };
-
-    const category: any = await API.graphql(
-      graphqlOperation(listCategories, {
-        filter: {
-          tenantId,
-        },
-      })
-    );
-
-    setCategories(category.data.listCategories.items);
-  };
-
-  const getProducts = async () => {
-    const tenantId: ModelIDInput = {
-      eq: "2",
-    };
-
-    const product: any = await API.graphql(
-      graphqlOperation(listProducts, {
-        filter: {
-          tenantId,
-        },
-      })
-    );
-
-    setProducts(product.data.listProducts.items);
-  };
-
   useEffect(() => {
-    getCategories();
-    getProducts();
+    const categories = DataStore.observeQuery(Category).subscribe((msg) =>
+      setCategories(msg.items as any)
+    );
+
+    const products = DataStore.observeQuery(Product).subscribe((msg) =>
+      setProducts(msg.items as any)
+    );
+    return () => {
+      categories.unsubscribe();
+      products.unsubscribe();
+    };
   }, []);
 
   return (
@@ -94,7 +70,9 @@ const MenuSettings = () => {
           </div>
 
           {products.length > 0 &&
-            products.map((prod) => <SettingProduct prod={prod} />)}
+            products.map((prod) => (
+              <SettingProduct prod={prod} key={prod.id} />
+            ))}
         </div>
       </div>
     </div>

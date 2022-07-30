@@ -21,11 +21,10 @@ const NewProduct = ({
 
   const createNewProduct = async () => {
     const NewProduct: CreateProductInput = {
-      tenantId: "2",
       name,
-      categoryProductsId: category.id,
       price,
       image: fileName,
+      categoryID: category.id
     };
     const uploadFile = await Storage.put(fileName, selectedFile);
 
@@ -33,8 +32,6 @@ const NewProduct = ({
       query: createProduct,
       variables: { input: NewProduct },
     });
-    
-    console.log(NewProduct, created);
 
     setName('')
     setFileName('')

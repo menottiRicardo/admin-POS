@@ -1,0 +1,15 @@
+{
+  "resourceName": "s3posbackendstorage",
+  "bucketName": "pos-backend-storage",
+  "policyUUID": "f45a28c1",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ",
+    "CREATE_AND_UPDATE"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

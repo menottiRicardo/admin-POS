@@ -1,4 +1,3 @@
-/* tslint:disable */
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
@@ -13,29 +12,6 @@ export const getIngredient = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -65,16 +41,6 @@ export const listIngredients = /* GraphQL */ `
         name
         qty
         products {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -107,16 +73,6 @@ export const syncIngredients = /* GraphQL */ `
         name
         qty
         products {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -144,10 +100,6 @@ export const getCategory = /* GraphQL */ `
           image
           description
           categoryID
-          Ingredients {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version
@@ -176,19 +128,6 @@ export const listCategories = /* GraphQL */ `
         id
         name
         Products {
-          items {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -220,19 +159,6 @@ export const syncCategories = /* GraphQL */ `
         id
         name
         Products {
-          items {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -261,29 +187,6 @@ export const getProduct = /* GraphQL */ `
           id
           ingredientID
           productID
-          ingredient {
-            id
-            name
-            qty
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
-          product {
-            id
-            name
-            price
-            image
-            description
-            categoryID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           createdAt
           updatedAt
           _version
@@ -316,16 +219,6 @@ export const listProducts = /* GraphQL */ `
         description
         categoryID
         Ingredients {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -361,16 +254,6 @@ export const syncProducts = /* GraphQL */ `
         description
         categoryID
         Ingredients {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -399,11 +282,6 @@ export const getTable = /* GraphQL */ `
           total
           status
           tableID
-          products {
-            id
-            notes
-            qty
-          }
           createdAt
           updatedAt
           _version
@@ -434,18 +312,6 @@ export const listTables = /* GraphQL */ `
         number
         seats
         Orders {
-          items {
-            id
-            name
-            total
-            status
-            tableID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -479,18 +345,6 @@ export const syncTables = /* GraphQL */ `
         number
         seats
         Orders {
-          items {
-            id
-            name
-            total
-            status
-            tableID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -601,16 +455,6 @@ export const getProductIngredient = /* GraphQL */ `
         name
         qty
         products {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -628,16 +472,6 @@ export const getProductIngredient = /* GraphQL */ `
         description
         categoryID
         Ingredients {
-          items {
-            id
-            ingredientID
-            productID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-          }
           nextToken
           startedAt
         }
@@ -674,10 +508,6 @@ export const listProductIngredients = /* GraphQL */ `
           id
           name
           qty
-          products {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version
@@ -691,10 +521,6 @@ export const listProductIngredients = /* GraphQL */ `
           image
           description
           categoryID
-          Ingredients {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version
@@ -733,10 +559,6 @@ export const syncProductIngredients = /* GraphQL */ `
           id
           name
           qty
-          products {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version
@@ -750,10 +572,6 @@ export const syncProductIngredients = /* GraphQL */ `
           image
           description
           categoryID
-          Ingredients {
-            nextToken
-            startedAt
-          }
           createdAt
           updatedAt
           _version

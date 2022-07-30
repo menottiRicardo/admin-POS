@@ -1,4 +1,4 @@
-import { API } from "aws-amplify";
+import { API, DataStore } from "aws-amplify";
 import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import { BiBookAdd } from "react-icons/bi";
@@ -6,14 +6,13 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   CreateOrderInput,
   ModelIDInput,
-  Order,
-  OrderProducts,
-  Product,
+  Order as OrderType,
   Status,
   UpdateOrderInput,
 } from "../src/API";
 import { createOrder, updateOrder } from "../src/graphql/mutations";
-import { listOrderProducts, listOrders } from "../src/graphql/queries";
+import { listOrders } from "../src/graphql/queries";
+import { Order, Product, ProductsOrdered } from "../src/models";
 import {
   currentOrderAtom,
   ordersAtom,
@@ -35,10 +34,9 @@ const Checkout = () => {
 
   const addOrder = async () => {
     const newOrder: CreateOrderInput = {
-      tenantId: "2",
       name,
-      tableId: tableId as string,
-      status: Status.created,
+      tableID: tableId as string,
+      status: Status.CREATED,
       total: 0,
     };
 
@@ -53,81 +51,28 @@ const Checkout = () => {
     setName("");
   };
 
-  useEffect(() => {
-    const getOrders = async () => {
-      const { tableId } = router.query;
-
-      const table: ModelIDInput = {
-        eq: tableId as string,
-      };
-
-      const rawOrdes: any = await API.graphql({
-        query: listOrders,
-        variables: { filter: { tableId: table } },
-      });
-
-      const orderItems: Order[] = await rawOrdes.data.listOrders.items;
-
-      // const filterCancelled = orderItems.filter(
-      //   (ord) => ord.status !== Status.cancelled
-      // );
-
-      // const orders = filterCancelled.filter(
-      //   (ord) => ord.status === Status.paid
-      // );
-      setOrders(orderItems);
-    };
-    getOrders();
-  }, []);
-
-  const getProducts = async (order: Order) => {
+  const getProducts = async (order: OrderType) => {
     setCurrentOrder(order);
-    const orderID: ModelIDInput = {
-      eq: order.id,
-    };
-    const rawProducts: any = await API.graphql({
-      query: listOrderProducts,
-      variables: { filter: { orderID: orderID } },
-    });
-    const productsTobeMapped = rawProducts.data.listOrderProducts.items;
-    const products = productsTobeMapped.map((prod: OrderProducts) => {
-      const id = prod.id;
-      const product = prod.product;
-      return { ...product, id };
-    });
-
-    setOrderProducts(products);
+    setOrderProducts(order.products as ProductsOrdered[]);
   };
 
   useEffect(() => {
-    if (currentOrder.id === undefined) return;
-    console.log("here");
-    const getNewList = async () => {
-      const orderID: ModelIDInput = {
-        eq: currentOrder.id,
-      };
-      const rawProducts: any = await API.graphql({
-        query: listOrderProducts,
-        variables: { filter: { orderID: orderID } },
-      });
-      const productsTobeMapped = rawProducts.data.listOrderProducts.items;
+    const orderSubscription = DataStore.observeQuery(Order, (o) =>
+      o.tableID("eq", tableId as string)
+    ).subscribe((msg) => {
+      console.log(msg.items)
+      setOrders(msg.items as OrderType[]);
+    });
 
-      const products = productsTobeMapped.map((prod: OrderProducts) => {
-        const id = prod.id;
-        const product = prod.product;
-        return { ...product, id };
-      });
-
-      setOrderProducts(products);
+    return () => {
+      orderSubscription.unsubscribe();
     };
-
-    getNewList();
-  }, [currentOrder]);
+  }, [tableId]);
 
   const ordenar = async () => {
     const newOrder: UpdateOrderInput = {
       id: currentOrder.id,
-      status: Status.ordered,
+      status: Status.ORDERED,
     };
 
     const rawOrder: any = await API.graphql({
@@ -137,14 +82,11 @@ const Checkout = () => {
 
     const orderUpdated = rawOrder.data.updateOrder;
     setCurrentOrder(orderUpdated);
-    console.log(rawOrder);
   };
 
   const renderButton: () => JSX.Element = () => {
-    console.log(currentOrder.status);
-
     switch (currentOrder.status) {
-      case Status.created:
+      case Status.CREATED:
         return (
           <button
             className="bg-primary-400 w-full rounded-xl py-2 shadow-md text-white font-medium mt-4 z-50"
@@ -154,14 +96,14 @@ const Checkout = () => {
           </button>
         );
 
-      case Status.ordered:
+      case Status.ORDERED:
         return (
           <button className="animate-pulse bg-primary-400 w-full rounded-xl py-2 shadow-md text-white font-medium mt-4 z-50">
             Preparando
           </button>
         );
 
-      case Status.prepared:
+      case Status.PREPARED:
         return (
           <button className="bg-primary-400 w-full rounded-xl py-2 shadow-md text-white font-medium mt-4 z-50">
             Preparada
@@ -198,8 +140,8 @@ const Checkout = () => {
         </div>
       )}
 
-      {orders.length > 0 && (
-        <div className="bg-white px-3 py-2 rounded-md mt-4">
+      {orders && (
+        <div className="bg-white px-3 py-2 rounded-md mt-4 h-36 overflow-y-auto">
           {orders.map((order) => (
             <div
               key={order.id}
@@ -216,15 +158,14 @@ const Checkout = () => {
         </div>
       )}
 
-      <div className="overflow-y-auto h-[27rem] ">
-        {orderProducts.length > 0 &&
-          orderProducts.map((product: Product) => (
+      <div className="overflow-y-auto h-[30rem] mt-2">
+        {orderProducts &&
+          orderProducts.map((product: ProductsOrdered) => (
             <SmallProduct
               key={product.id}
-              name={product.name}
-              id={product.id}
-              notes={"2"}
-              price={product.price}
+              id={product.id as string}
+              notes={product.notes as string}
+              qty={product.qty as string}
             ></SmallProduct>
           ))}
       </div>
