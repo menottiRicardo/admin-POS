@@ -43,7 +43,7 @@ const Table = ({ categories, products }: any) => {
   useEffect(() => {
     setProducts(products);
   }, []);
-  
+
   return (
     <div className="flex w-full pl-3">
       <div className="w-3/4 ">
@@ -94,7 +94,7 @@ export async function getStaticProps({ req }: any) {
   const rawProduct: any = await SSR.API.graphql(graphqlOperation(listProducts));
 
   const products = await rawProduct.data.listProducts.items;
-  console.log(products);
+  
   return {
     props: {
       categories,

@@ -1,4 +1,4 @@
-import { API } from "aws-amplify";
+import { API, Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
@@ -80,6 +80,16 @@ const Product = ({ product }: ProductProps) => {
     setAdd(false);
   };
 
+  async function setPhoto() {
+    const s3Image = await Storage.get(image as string);
+    const req = new Request(s3Image);
+    setProductImage(req.url);
+  }
+
+  useEffect(() => {
+    setPhoto();
+  }, [image]);
+
   return (
     <div
       className={`bg-white shadow-md rounded-md w-48 my-3 ${
@@ -88,7 +98,7 @@ const Product = ({ product }: ProductProps) => {
       onClick={open}
     >
       {/* image */}
-      {/* {image !== "" ? (
+      {image !== "" ? (
         <div className="h-28 w-48 bg-gray-400 rounded-t-md relative">
           <img
             src={productImage ?? ""}
@@ -96,9 +106,9 @@ const Product = ({ product }: ProductProps) => {
             style={{ objectFit: "fill", width: "20rem", height: "7rem" }}
           />
         </div>
-      ) : ( */}
-      <div className="h-28 w-48 bg-gray-400 rounded-t-md relative"></div>
-      {/* )} */}
+      ) : (
+        <div className="h-28 w-48 bg-gray-400 rounded-t-md relative"></div>
+      )}
 
       {/* )} */}
 

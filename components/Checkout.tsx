@@ -60,7 +60,7 @@ const Checkout = () => {
     const orderSubscription = DataStore.observeQuery(Order, (o) =>
       o.tableID("eq", tableId as string)
     ).subscribe((msg) => {
-      console.log(msg.items)
+     
       setOrders(msg.items as OrderType[]);
     });
 
@@ -70,18 +70,22 @@ const Checkout = () => {
   }, [tableId]);
 
   const ordenar = async () => {
-    const newOrder: UpdateOrderInput = {
-      id: currentOrder.id,
-      status: Status.ORDERED,
-    };
+    // const newOrder: UpdateOrderInput = {
+    //   id: currentOrder.id,
+    //   status: Status.ORDERED,
+    // };
 
-    const rawOrder: any = await API.graphql({
-      query: updateOrder,
-      variables: { input: newOrder },
-    });
+    // const rawOrder: any = await API.graphql({
+    //   query: updateOrder,
+    //   variables: { input: newOrder },
+    // });
+    const updateOrder:any = await DataStore.save(Order.copyOf(currentOrder, updated => {
+      updated.status = Status.ORDERED
+    }))
 
-    const orderUpdated = rawOrder.data.updateOrder;
-    setCurrentOrder(orderUpdated);
+    // const orderUpdated = rawOrder.data.updateOrder;
+    // console.log(rawOrder.data.updateOrder)
+    setCurrentOrder(updateOrder);
   };
 
   const renderButton: () => JSX.Element = () => {

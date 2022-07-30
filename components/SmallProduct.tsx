@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { UpdateOrderInput } from "../src/API";
 import { updateOrder } from "../src/graphql/mutations";
+import { Order } from "../src/models";
 import { currentOrderAtom, ResProducts } from "../src/state/atoms";
 
 const SmallProduct = ({
@@ -36,7 +37,7 @@ const SmallProduct = ({
     if (quantity === qty) return;
 
     const newProductList = currentOrder.products?.map((prod) => {
-      if (prod?.id !== product.id) return "hola";
+      if (prod?.id !== product.id) return prod;
       const updated = {
         ...prod,
         qty: quantity,
@@ -46,9 +47,15 @@ const SmallProduct = ({
 
     const newTable: UpdateOrderInput = {
       id: currentOrder.id,
-      products,
+      products: newProductList,
     };
-    console.log(currentOrder.products, product, newProductList);
+    
+    console.log(newProductList);
+    DataStore.save(
+      Order.copyOf(currentOrder, (co) => {
+        co.products = newProductList;
+      })
+    );
 
     // const created: any = API.graphql({
     //   query: updateOrder,
