@@ -23,17 +23,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <Authenticator signUpAttributes={["phone_number"]}>
       {({ signOut, user }) => (
-        <RecoilRoot>
-          
-          <Head>
-            <title>Admin Sunset</title>
-            <link rel="manifest" href="/manifest.json" />
-            <link rel="apple-touch-icon" href="/192.png" />
-            <link rel="icon" href="/metro-ico-192.ico" />
-            <meta name="theme-color" content="#fff" />
-          </Head>
-          {getLayout(<Component {...pageProps} />)}
-        </RecoilRoot>
+        <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
       )}
     </Authenticator>
   );
