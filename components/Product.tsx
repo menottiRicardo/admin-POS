@@ -8,7 +8,11 @@ import {
 } from "../src/API";
 import { updateOrder } from "../src/graphql/mutations";
 
-import { currentOrderAtom, OrderProducstAtom } from "../src/state/atoms";
+import {
+  currentOrderAtom,
+  OrderProducstAtom,
+  ProductListAtom,
+} from "../src/state/atoms";
 import { SaveProductAtom } from "../src/state/selectors";
 interface ProductProps {
   product: ProductType;
@@ -25,8 +29,7 @@ const Product = ({ product }: ProductProps) => {
   const currentOrder = useRecoilValue(currentOrderAtom);
   const [productImage, setProductImage] = useState(image);
   const [orderProductAtom, setOrderProductAtom] =
-    useRecoilState(OrderProducstAtom);
-  const saveNewProduct = useSetRecoilState(SaveProductAtom);
+    useRecoilState(ProductListAtom);
 
   const open = () => {
     if (add === false) return setAdd(true);
@@ -50,6 +53,7 @@ const Product = ({ product }: ProductProps) => {
         variables: { input: createNewRelation },
       });
 
+      setOrderProductAtom(created.data.updateOrder.products);
       return;
     }
 
@@ -76,6 +80,7 @@ const Product = ({ product }: ProductProps) => {
       query: updateOrder,
       variables: { input: createNewRelation },
     });
+    setOrderProductAtom(created.data.updateOrder.products);
 
     setAdd(false);
   };

@@ -2,21 +2,14 @@ import { API, DataStore } from "aws-amplify";
 import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import { BiBookAdd } from "react-icons/bi";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  CreateOrderInput,
-  ModelIDInput,
-  Order as OrderType,
-  Status,
-  UpdateOrderInput,
-} from "../src/API";
-import { createOrder, updateOrder } from "../src/graphql/mutations";
-import { listOrders } from "../src/graphql/queries";
+import { useRecoilState } from "recoil";
+import { CreateOrderInput, Order as OrderType, Status } from "../src/API";
+import { createOrder } from "../src/graphql/mutations";
+
 import { Order, Product, ProductsOrdered } from "../src/models";
 import {
   currentOrderAtom,
   ordersAtom,
-  orderType,
   ProductListAtom,
 } from "../src/state/atoms";
 
@@ -60,7 +53,6 @@ const Checkout = () => {
     const orderSubscription = DataStore.observeQuery(Order, (o) =>
       o.tableID("eq", tableId as string)
     ).subscribe((msg) => {
-     
       setOrders(msg.items as OrderType[]);
     });
 
@@ -70,21 +62,15 @@ const Checkout = () => {
   }, [tableId]);
 
   const ordenar = async () => {
-    // const newOrder: UpdateOrderInput = {
-    //   id: currentOrder.id,
-    //   status: Status.ORDERED,
-    // };
+  
+    const updateOrder: any = await DataStore.save(
+      Order.copyOf(currentOrder, (updated) => {
+        updated.status = Status.ORDERED;
+      })
+    );
+    console.log(updateOrder)
 
-    // const rawOrder: any = await API.graphql({
-    //   query: updateOrder,
-    //   variables: { input: newOrder },
-    // });
-    const updateOrder:any = await DataStore.save(Order.copyOf(currentOrder, updated => {
-      updated.status = Status.ORDERED
-    }))
-
-    // const orderUpdated = rawOrder.data.updateOrder;
-    // console.log(rawOrder.data.updateOrder)
+   
     setCurrentOrder(updateOrder);
   };
 
@@ -145,7 +131,7 @@ const Checkout = () => {
       )}
 
       {orders && (
-        <div className="bg-white px-3 py-2 rounded-md mt-4 h-36 overflow-y-auto">
+        <div className="bg-white px-3 py-2 rounded-md mt-4 h-32 overflow-y-auto">
           {orders.map((order) => (
             <div
               key={order.id}
@@ -162,7 +148,7 @@ const Checkout = () => {
         </div>
       )}
 
-      <div className="overflow-y-auto h-[30rem] mt-2">
+      <div className="overflow-y-auto h-[28rem] mt-2">
         {orderProducts &&
           orderProducts.map((product: ProductsOrdered) => (
             <SmallProduct

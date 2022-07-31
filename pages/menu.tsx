@@ -68,7 +68,7 @@ const Table = ({ categories, products }: any) => {
             />
           ))}
         </div>
-        <div className="overflow-scroll h-[42rem] w-full">
+        <div className="overflow-scroll h-[38rem] w-full">
           <div className="grid grid-cols-3">
             {productList.map((product: ProductType) => (
               <Product key={product.id} product={product} />
