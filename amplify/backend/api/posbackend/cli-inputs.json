@@ -3,7 +3,6 @@
   "serviceConfiguration": {
     "apiName": "posbackend",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "/tmp/amplify-e7c35cbc-4be8-4a30-b56b-28026ec9cd10/amplify/backend/api/posbackend/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
       "keyDescription": "api key description",

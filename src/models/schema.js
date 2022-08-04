@@ -568,9 +568,25 @@ export const schema = {
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
+                },
+                "price": {
+                    "name": "price",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "status": {
+                    "name": "status",
+                    "isArray": false,
+                    "type": {
+                        "enum": "Status"
+                    },
+                    "isRequired": false,
+                    "attributes": []
                 }
             }
         }
     },
-    "version": "798fe489ba6482f126b59842c3b93cf0"
+    "version": "43f4103e14e6428d1b323b731d526a7c"
 };

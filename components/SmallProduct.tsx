@@ -1,10 +1,12 @@
 import { API, DataStore } from "aws-amplify";
 import React, { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { useRecoilValue } from "recoil";
 import { UpdateOrderInput } from "../src/API";
 import { updateOrder } from "../src/graphql/mutations";
 import { Order } from "../src/models";
-import { currentOrderAtom, ResProducts } from "../src/state/atoms";
+import { currentOrderAtom, ResProducts, TotalPrices } from "../src/state/atoms";
 
 const SmallProduct = ({
   id,
@@ -18,6 +20,7 @@ const SmallProduct = ({
   const products = useRecoilValue(ResProducts);
   const [quantity, setQuantity] = useState(qty);
   const currentOrder = useRecoilValue(currentOrderAtom);
+  const [prices, setPrices] = useRecoilState(TotalPrices)
   const [product, setProduct] = useState(
     products.filter((prod) => prod.id === id)[0]
   );
@@ -33,9 +36,8 @@ const SmallProduct = ({
     setQuantity(newQty.toString());
   };
 
-  useEffect(() => {
-    if (quantity === qty) return;
-
+  const updateProduct = async () => {
+    console.log('here',)
     const newProductList = currentOrder.products?.map((prod) => {
       if (prod?.id !== product.id) return prod;
       const updated = {
@@ -45,22 +47,19 @@ const SmallProduct = ({
       return updated;
     });
 
-    const newTable: UpdateOrderInput = {
-      id: currentOrder.id,
-      products: newProductList,
-    };
-    
-    console.log(newProductList);
-    DataStore.save(
-      Order.copyOf(currentOrder, (co) => {
+    const currProduct = await DataStore.query(Order, currentOrder.id);
+    await DataStore.save(
+      Order.copyOf(currProduct, (co) => {
         co.products = newProductList;
       })
     );
+  };
 
-    // const created: any = API.graphql({
-    //   query: updateOrder,
-    //   variables: { input: newTable },
-    // });
+  useEffect(() => {
+    setPrices([...prices, product.price])
+    if (quantity === qty) return;
+
+    updateProduct();
   }, [quantity]);
 
   return (

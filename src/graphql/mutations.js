@@ -412,6 +412,8 @@ export const createOrder = /* GraphQL */ `
         id
         notes
         qty
+        price
+        status
       }
       createdAt
       updatedAt
@@ -436,6 +438,8 @@ export const updateOrder = /* GraphQL */ `
         id
         notes
         qty
+        price
+        status
       }
       createdAt
       updatedAt
@@ -460,6 +464,8 @@ export const deleteOrder = /* GraphQL */ `
         id
         notes
         qty
+        price
+        status
       }
       createdAt
       updatedAt

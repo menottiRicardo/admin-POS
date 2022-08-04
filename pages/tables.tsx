@@ -1,41 +1,32 @@
-import { API, graphqlOperation } from "aws-amplify";
+import { DataStore } from "aws-amplify";
 import { ReactElement, useEffect, useState } from "react";
-import {
-  CreateTableInput,
-  ListTablesQuery,
-  ModelIDInput,
-  Table,
-} from "../src/API";
-import { createTable } from "../src/graphql/mutations";
-import { listTables } from "../src/graphql/queries";
-import { useRouter } from "next/dist/client/router";
+
+import { useRouter } from "next/router";
 import LeftMenu from "../components/Layout/LeftMenu";
 import TableUi from "../components/TableUi";
 import NewTable from "../components/Modals/NewTable";
+import { Table } from "../src/models";
 
 const Tables = () => {
   const [tables, setTables] = useState<Table[]>([]);
-  const [open, setOpen] = useState(false)
+
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
-
-  const getTables = async () => {
-    const item: any = await API.graphql<ListTablesQuery>(
-      graphqlOperation(listTables)
-    );
-    setTables(item.data.listTables.items);
-  };
-
   useEffect(() => {
-    getTables();
-  }, [open]);
+    const orderSubscription = DataStore.observeQuery(Table).subscribe((msg) => {
+      setTables(msg.items as Table[]);
+    });
 
- 
+    return () => {
+      orderSubscription.unsubscribe();
+    };
+  }, []);
 
   return (
     <div className="">
       {/* tables */}
-      <NewTable open={open} setOpen={setOpen}/>
+      <NewTable open={open} setOpen={setOpen} />
       <div className="grid grid-cols-8 p-4 gap-10">
         <div
           className={`w-20 h-20 bg-gray-400 shadow-md rounded-md cursor-pointer border-2 border-dashed`}

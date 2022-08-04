@@ -16,6 +16,11 @@ export const OrderProducstAtom = atom({
   default: [] as ProductsOrdered[]
 })
 
+export const TotalPrices = atom({
+  key: "TotalPrices",
+  default: [] as number[]
+})
+
 export const ProductListAtom = atom({
   key: "ProductListAtom",
   default: [] as ProductsOrdered[]

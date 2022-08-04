@@ -1,7 +1,8 @@
 import { API, DataStore } from "aws-amplify";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BiBookAdd } from "react-icons/bi";
+import { useRecoilValue } from "recoil";
 import { useRecoilState } from "recoil";
 import { CreateOrderInput, Order as OrderType, Status } from "../src/API";
 import { createOrder } from "../src/graphql/mutations";
@@ -11,6 +12,7 @@ import {
   currentOrderAtom,
   ordersAtom,
   ProductListAtom,
+  TotalPrices,
 } from "../src/state/atoms";
 
 import SmallProduct from "./SmallProduct";
@@ -19,6 +21,7 @@ const Checkout = () => {
   const [orders, setOrders] = useRecoilState(ordersAtom);
   const [currentOrder, setCurrentOrder] = useRecoilState(currentOrderAtom);
   const [orderProducts, setOrderProducts] = useRecoilState(ProductListAtom);
+  const prices = useRecoilValue(TotalPrices)
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const router = useRouter();
@@ -45,6 +48,7 @@ const Checkout = () => {
   };
 
   const getProducts = async (order: OrderType) => {
+    console.log(order)
     setCurrentOrder(order);
     setOrderProducts(order.products as ProductsOrdered[]);
   };
@@ -68,9 +72,6 @@ const Checkout = () => {
         updated.status = Status.ORDERED;
       })
     );
-    console.log(updateOrder)
-
-   
     setCurrentOrder(updateOrder);
   };
 
@@ -109,6 +110,11 @@ const Checkout = () => {
     }
   };
 
+  const getTotal = () => {
+    console.log(orderProducts, prices)
+  }
+
+  getTotal()
   return (
     <div>
       <p className="font-bold text-xl mt-4">Mesa #{tableNumber}</p>
@@ -160,7 +166,12 @@ const Checkout = () => {
           ))}
       </div>
 
-      <div className="">{renderButton()}</div>
+
+
+
+      <div className="bg-white rounded-md p-2">
+
+        {renderButton()}</div>
     </div>
   );
 };

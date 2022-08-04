@@ -7,6 +7,7 @@ import {
   UpdateOrderInput,
 } from "../src/API";
 import { updateOrder } from "../src/graphql/mutations";
+import { Status } from "../src/models";
 
 import {
   currentOrderAtom,
@@ -32,7 +33,7 @@ const Product = ({ product }: ProductProps) => {
     useRecoilState(ProductListAtom);
 
   const open = () => {
-    if (add === false) return setAdd(true);
+    setAdd(!add);
   };
 
   const addNewProduct = async () => {
@@ -42,10 +43,13 @@ const Product = ({ product }: ProductProps) => {
         id: product.id,
         notes: "",
         qty: "1",
+        price: product.price,
+        status: Status.ORDERED,
       };
       const createNewRelation = {
         id: currentOrder.id,
         products: [newProduct],
+        status: Status.ORDERED,
       };
 
       const created: any = await API.graphql({

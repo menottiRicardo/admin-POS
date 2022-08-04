@@ -403,6 +403,8 @@ export const getTable = /* GraphQL */ `
             id
             notes
             qty
+            price
+            status
           }
           createdAt
           updatedAt
@@ -517,6 +519,8 @@ export const getOrder = /* GraphQL */ `
         id
         notes
         qty
+        price
+        status
       }
       createdAt
       updatedAt
@@ -543,6 +547,8 @@ export const listOrders = /* GraphQL */ `
           id
           notes
           qty
+          price
+          status
         }
         createdAt
         updatedAt
@@ -578,6 +584,8 @@ export const syncOrders = /* GraphQL */ `
           id
           notes
           qty
+          price
+          status
         }
         createdAt
         updatedAt
