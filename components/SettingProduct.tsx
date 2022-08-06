@@ -14,7 +14,7 @@ const SettingProduct = ({ prod }: any) => {
   }, [prod.image]);
 
   return (
-    <div className="bg-white shadow-md rounded-md w-48 h-44" key={prod.id}>
+    <div className="bg-white shadow-md rounded-md w-48" key={prod.id}>
       {/* image */}
 
       {prod.image !== "" ? (
@@ -32,8 +32,10 @@ const SettingProduct = ({ prod }: any) => {
       <div className="px-3 pb-3">
         <h2 className="font-medium text-xl uppercase">{prod.name}</h2>
 
-        <p className="text-gray-500 text-sm my-2">{prod.description}</p>
-        <p className="font-bold text-xl">${prod.price}</p>
+        <div className="flex justify-between">
+          <p className="text-gray-500 text-sm my-2">{prod.description}</p>
+          <p className="font-bold text-xl">${prod.price}</p>
+        </div>
       </div>
     </div>
   );
