@@ -11,19 +11,7 @@ import { API, graphqlOperation, withSSRContext } from "aws-amplify";
 import { Category, ModelIDInput, Product as ProductType } from "../src/API";
 import { listCategories, listProducts } from "../src/graphql/queries";
 
-const getProducts = async (
-  id: string,
-  products: ProductType[]
-): Promise<ProductType[]> => {
-  switch (id) {
-    case "999":
-      return products;
 
-    default:
-      const newList = products.filter((product) => product.categoryID === id);
-      return newList;
-  }
-};
 
 const Table = ({ categories, products }: any) => {
   const [selected, setSelected] = useState("999");
@@ -42,6 +30,20 @@ const Table = ({ categories, products }: any) => {
   useEffect(() => {
     setProducts(products);
   }, []);
+
+  const getProducts = async (
+    id: string,
+    products: ProductType[]
+  ): Promise<ProductType[]> => {
+    switch (id) {
+      case "999":
+        return products;
+  
+      default:
+        const newList = products.filter((product) => product.categoryID === id);
+        return newList;
+    }
+  };
 
   return (
     <div className="flex w-full pl-3">
@@ -63,7 +65,7 @@ const Table = ({ categories, products }: any) => {
               tableId={"tableId"}
               key={category.id}
               id={category.id}
-              setSelected={setSelected}
+              setSelected={() => setSelected(category.id)}
             />
           ))}
         </div>

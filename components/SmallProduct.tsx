@@ -57,7 +57,7 @@ const SmallProduct = ({
   };
 
   useEffect(() => {
-    setPrices([...prices, product.price as number])
+    setPrices([...prices, product?.price as number ?? 0])
     if (quantity === qty) return;
 
     updateProduct();
