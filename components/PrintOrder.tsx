@@ -24,7 +24,7 @@ const PrintOrder = ({ order }: any) => {
       0
     );
 
-    const itbms = subtotal * 1.07;
+    const itbms = subtotal * 0.07;
     const total = subtotal + itbms;
 
     const tenPercent = total * 0.1;
@@ -32,7 +32,7 @@ const PrintOrder = ({ order }: any) => {
     const twentyPercent = total * 0.2;
     return (
       <div className="">
-        <div className="grid grid-cols-2 border-t-2 border-dashed py-2 gap-y-2 text-xl ">
+        <div className="grid grid-cols-2 border-t-4 border-dashed py-2 gap-y-2 text-xl ">
           <p className="font-bold">Subtotal</p>
           <p className="text-right">${subtotal.toFixed(2)}</p>
           <p className="font-bold">ITBMS al 7%</p>
@@ -41,7 +41,7 @@ const PrintOrder = ({ order }: any) => {
           <p className="text-right">${total.toFixed(2)}</p>
         </div>
 
-        <div className="grid grid-cols-2 border-t-2 border-dashed py-2 text-lg">
+        <div className="grid grid-cols-2 border-t-4 border-dashed py-2 text-lg">
           <h1 className="col-span-2 font-bold">Propina Sugerida</h1>
           <p className="font-bold">10%</p>
           <p className="text-right">${tenPercent.toFixed(2)}</p>
@@ -67,10 +67,10 @@ const PrintOrder = ({ order }: any) => {
             Sunset Beach and Club
           </h1>
 
-          <h2>Precuenta 123123</h2>
-          <h2>Cliente Ricardo</h2>
+          <h2>Precuenta {order.id}</h2>
+          <h2 className="border-b-2 border-dashed">Cliente {order.name}</h2>
 
-          <p>Productos</p>
+          
 
           {order.products.map((prod :any) => (
             <div className="my-4" key={prod.id}>
