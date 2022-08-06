@@ -31,7 +31,7 @@ const PrintOrder = ({ order }: any) => {
     const fiftPercent = total * 0.15;
     const twentyPercent = total * 0.2;
     return (
-      <div className="">
+      <div className="mb-10">
         <div className="grid grid-cols-2 border-t-4 border-dashed border-black py-2 gap-y-2 text-xl ">
           <p className="font-bold">Subtotal</p>
           <p className="text-right">${subtotal.toFixed(2)}</p>
