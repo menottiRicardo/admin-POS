@@ -55,7 +55,7 @@ const Checkout = () => {
 
   useEffect(() => {
     const orderSubscription = DataStore.observeQuery(Order, (o) =>
-      o.tableID("eq", tableId as string)
+      o.tableID("eq", tableId as string).status('ne', Status.CANCELLED).status('ne', Status.PAID)
     ).subscribe((msg) => {
       setOrders(msg.items as OrderType[]);
     });
