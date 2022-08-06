@@ -44,7 +44,7 @@ const Dropdown = ({
 
       {show && (
         <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-          <div className="py-1 grid grid-cols-2 px-2 gap-2">
+          <div className="py-1 grid grid-cols-2 px-2 gap-2 divide-y">
             {options &&
               options.map((option) => (
                 <p
