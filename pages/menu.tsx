@@ -26,7 +26,6 @@ const getProducts = async (
 };
 
 const Table = ({ categories, products }: any) => {
-  console.log(categories);
   const [selected, setSelected] = useState("999");
   const [productList, setProductsList] = useState<ProductType[]>(products);
   const setProducts = useSetRecoilState(ResProducts);

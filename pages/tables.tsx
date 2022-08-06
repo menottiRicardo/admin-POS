@@ -51,7 +51,7 @@ const Tables = () => {
                 )
               }
             >
-              <TableUi full={table.full} number={table.number} />
+              <TableUi full={table.full} number={table.number} onClick={() => console.log('clicked')}/>
             </div>
           ))}
       </div>

@@ -7,7 +7,6 @@ import Amplify from "aws-amplify";
 import config from "../src/aws-exports";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
-import Head from "next/head";
 Amplify.configure({ ...config, srr: true });
 
 type NextPageWithLayout = NextPage & {
