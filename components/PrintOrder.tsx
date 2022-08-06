@@ -32,7 +32,7 @@ const PrintOrder = ({ order }: any) => {
     const twentyPercent = total * 0.2;
     return (
       <div className="">
-        <div className="grid grid-cols-2 border-t-4 border-dashed py-2 gap-y-2 text-xl ">
+        <div className="grid grid-cols-2 border-t-4 border-dashed border-black py-2 gap-y-2 text-xl ">
           <p className="font-bold">Subtotal</p>
           <p className="text-right">${subtotal.toFixed(2)}</p>
           <p className="font-bold">ITBMS al 7%</p>
@@ -41,7 +41,7 @@ const PrintOrder = ({ order }: any) => {
           <p className="text-right">${total.toFixed(2)}</p>
         </div>
 
-        <div className="grid grid-cols-2 border-t-4 border-dashed py-2 text-lg">
+        <div className="grid grid-cols-2 border-t-4 border-dashed border-black py-2 text-lg">
           <h1 className="col-span-2 font-bold">Propina Sugerida</h1>
           <p className="font-bold">10%</p>
           <p className="text-right">${tenPercent.toFixed(2)}</p>
