@@ -48,7 +48,7 @@ const Checkout = () => {
   };
 
   const getProducts = async (order: OrderType) => {
-    console.log(order);
+    
     setCurrentOrder(order);
     setOrderProducts(order.products as ProductsOrdered[]);
   };

@@ -373,6 +373,7 @@ export const getOrder = /* GraphQL */ `
         qty
         price
         status
+        name
       }
       createdAt
       updatedAt
@@ -401,6 +402,7 @@ export const listOrders = /* GraphQL */ `
           qty
           price
           status
+          name
         }
         createdAt
         updatedAt
@@ -438,6 +440,7 @@ export const syncOrders = /* GraphQL */ `
           qty
           price
           status
+          name
         }
         createdAt
         updatedAt

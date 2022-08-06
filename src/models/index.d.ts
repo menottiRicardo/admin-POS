@@ -14,6 +14,7 @@ export declare class ProductsOrdered {
   readonly qty?: string | null;
   readonly price?: number | null;
   readonly status?: Status | keyof typeof Status | null;
+  readonly name?: string | null;
   constructor(init: ModelInit<ProductsOrdered>);
 }
 

@@ -143,7 +143,7 @@ const OrderListSlider = ({
                               >
                                 Pagar Orden
                               </button>
-                              <PrintOrder />
+                              <PrintOrder order={currentOrder}/>
                             </div>
                           </div>
                         )}

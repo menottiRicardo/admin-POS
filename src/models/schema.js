@@ -584,9 +584,16 @@ export const schema = {
                     },
                     "isRequired": false,
                     "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 }
             }
         }
     },
-    "version": "43f4103e14e6428d1b323b731d526a7c"
+    "version": "8e3b5f77b1f49296a12d76c3ff334a5d"
 };

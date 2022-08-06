@@ -1,9 +1,7 @@
-import {  Storage } from "aws-amplify";
+import { Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
 
-import {
-  Product as ProductType,
-} from "../src/API";
+import { Product as ProductType } from "../src/API";
 
 import AddProduct from "./Modals/AddProduct";
 interface ProductProps {
@@ -18,15 +16,12 @@ export type Flavor = {
 const Product = ({ product }: ProductProps) => {
   const { price, name, description, image } = product;
   const [add, setAdd] = useState(false);
-  
+
   const [productImage, setProductImage] = useState(image);
-  
 
   const open = () => {
     setAdd(true);
   };
-
-  
 
   async function setPhoto() {
     const s3Image = await Storage.get(image as string);
@@ -40,9 +35,7 @@ const Product = ({ product }: ProductProps) => {
 
   return (
     <div
-      className={`bg-white shadow-md rounded-md w-48 my-3 ${
-        add === false ? "max-h-52" : ""
-      }`}
+      className={`bg-white shadow-md rounded-md w-48 my-3`}
       onClick={open}
     >
       {/* image */}
@@ -63,12 +56,12 @@ const Product = ({ product }: ProductProps) => {
       <div className="px-3 pb-3">
         <h2 className="font-medium text-xl uppercase">{name}</h2>
 
-        <p className="text-gray-500 text-sm my-2">{description}</p>
-        <p className="font-bold text-xl">${price}</p>
+        <div className="flex justify-between">
+          <p className="text-gray-500 text-sm">{description}</p>
+          <p className="font-bold text-xl">${price}</p>
+        </div>
 
-        {add && (
-          <AddProduct close={setAdd} product={product}/>
-        )}
+        {add && <AddProduct close={setAdd} product={product} />}
       </div>
     </div>
   );

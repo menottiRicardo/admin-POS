@@ -63,11 +63,12 @@ const SmallProduct = ({
     updateProduct();
   }, [quantity]);
 
+  console.log(product)
   return (
     <div className="bg-white rounded-md flex my-2 items-center px-2 py-4">
       <div className="ml-2 flex justify-between w-full items-center">
         <p className="font-medium text-lg text-primary-400 uppercase">
-          {product.name}
+          {product?.name}
         </p>
         <div className="p-1 flex items-center">
           <p
@@ -84,7 +85,7 @@ const SmallProduct = ({
             +
           </p>
         </div>
-        <p className="text-primary-600 font-medium pr-2">${product.price}</p>
+        <p className="text-primary-600 font-medium pr-2">${product?.price}</p>
       </div>
     </div>
   );

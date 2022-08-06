@@ -45,7 +45,7 @@ const Table = ({ categories, products }: any) => {
 
   return (
     <div className="flex w-full pl-3">
-      <div className="w-3/4 ">
+      <div className="w-[65%]">
         <div className="flex mt-2 py-4 overflow-x-auto ">
           <MenuCategory
             title="Todo"
@@ -75,7 +75,7 @@ const Table = ({ categories, products }: any) => {
           </div>
         </div>
       </div>
-      <div className="bg-gray-200 w-1/3 px-2">
+      <div className="bg-gray-200 w-[35%] px-2">
         <Checkout />
       </div>
     </div>

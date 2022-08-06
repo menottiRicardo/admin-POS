@@ -38,19 +38,18 @@ const Pay = () => {
 
   return (
     <>
-   <PrintOrder />
-    <div className="grid grid-cols-8 p-4 gap-10">
-      <OrderListSlider open={open} setOpen={setOpen} tableId={tableId} />
+      <div className="grid grid-cols-8 p-4 gap-10">
+        <OrderListSlider open={open} setOpen={setOpen} tableId={tableId} />
 
-      {tables.map((table) => (
-        <TableUi
-          number={table.number}
-          full={table.full}
-          key={table.id}
-          onClick={() => openSlider(table.id)}
-        />
-      ))}
-    </div>
+        {tables.map((table) => (
+          <TableUi
+            number={table.number}
+            full={table.full}
+            key={table.id}
+            onClick={() => openSlider(table.id)}
+          />
+        ))}
+      </div>
     </>
   );
 };

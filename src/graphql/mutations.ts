@@ -469,6 +469,7 @@ export const createTable = /* GraphQL */ `
             qty
             price
             status
+            name
           }
           createdAt
           updatedAt
@@ -510,6 +511,7 @@ export const updateTable = /* GraphQL */ `
             qty
             price
             status
+            name
           }
           createdAt
           updatedAt
@@ -551,6 +553,7 @@ export const deleteTable = /* GraphQL */ `
             qty
             price
             status
+            name
           }
           createdAt
           updatedAt
@@ -586,6 +589,7 @@ export const createOrder = /* GraphQL */ `
         qty
         price
         status
+        name
       }
       createdAt
       updatedAt
@@ -612,6 +616,7 @@ export const updateOrder = /* GraphQL */ `
         qty
         price
         status
+        name
       }
       createdAt
       updatedAt
@@ -638,6 +643,7 @@ export const deleteOrder = /* GraphQL */ `
         qty
         price
         status
+        name
       }
       createdAt
       updatedAt

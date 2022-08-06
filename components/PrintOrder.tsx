@@ -3,18 +3,12 @@ import { useReactToPrint } from "react-to-print";
 
 const PrintOrder = ({ order }: any) => {
   const componentRef = useRef(null);
-  const [show, setShow] = useState(true);
+  console.log(order);
+  const [products, setProducts] = useState([]);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  const mock = [
-    {
-      id: 1,
-      qty: "2",
-      price: 2.99,
-      name: "adf",
-    },
-  ];
+
 
   const prodTotal = (qty: string, price: number) => {
     const total = parseInt(qty) * price;
@@ -23,8 +17,8 @@ const PrintOrder = ({ order }: any) => {
   };
 
   const getTotal = () => {
-    const subtotal = mock.reduce(
-      (previousValue, currentValue) =>
+    const subtotal = order.products.reduce(
+      (previousValue:any, currentValue:any) =>
         previousValue +
         parseInt(currentValue.qty as any) * (currentValue.price as any),
       0
@@ -78,8 +72,8 @@ const PrintOrder = ({ order }: any) => {
 
           <p>Productos</p>
 
-          {mock.map((prod) => (
-            <div className="my-4">
+          {order.products.map((prod :any) => (
+            <div className="my-4" key={prod.id}>
               <p className="font-medium text-xl">{prod.name}</p>
               <div className="flex justify-between">
                 <p>

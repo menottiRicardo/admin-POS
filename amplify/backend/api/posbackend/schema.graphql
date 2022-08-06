@@ -4,6 +4,7 @@ type ProductsOrdered {
   qty: String
   price: Float
   status: Status
+  name: String
 }
 
 type Ingredient @model @auth(rules: [{allow: public}]) {
