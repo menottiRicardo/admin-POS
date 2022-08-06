@@ -52,7 +52,7 @@ const MenuSettings = () => {
           categories.map((category) => (
             <div
               key={category.id}
-              className={`flex flex-col justify-center items-center rounded-md p-4 bg-primary-300 shadow-sm text-gray-100 border-2 border-gray-100 mx-2 w-20 h-20 text-xl`}
+              className={`flex flex-col justify-center items-center rounded-md p-4 bg-primary-300 shadow-sm text-gray-100 border-2 border-gray-100 mx-2 h-20 text-xl`}
             >
               {category.name}
             </div>
