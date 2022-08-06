@@ -7,18 +7,21 @@ import {
 import { GetServerSideProps } from "next";
 import React, { ReactElement, useEffect, useState } from "react";
 import LeftMenu from "../components/Layout/LeftMenu";
+import OrderListSlider from "../components/SlideOvers/OrderListSlider";
 import TableUi from "../components/TableUi";
+import { Order } from "../src/API";
 import { Table } from "../src/models";
 
 const Pay = () => {
-  const [orderId, setOrderId] = useState("");
+  const [tableId, setTableId] = useState<string>("");
   const [tables, setTables] = useState<Table[]>([]);
-  console.log(tables);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const orderSubscription = DataStore.observeQuery(Table, Predicates.ALL, {
       sort: (t) => t.number(SortDirection.ASCENDING),
     }).subscribe((msg) => {
+      console.log(msg.items);
       setTables(msg.items as Table[]);
     });
 
@@ -27,11 +30,22 @@ const Pay = () => {
     };
   }, []);
 
-  
+  const openSlider = (tableId: string) => {
+    setTableId(tableId);
+    setOpen(true);
+  };
+
   return (
     <div className="grid grid-cols-8 p-4 gap-10">
+      <OrderListSlider open={open} setOpen={setOpen} tableId={tableId} />
+
       {tables.map((table) => (
-        <TableUi number={table.number} full={table.full} />
+        <TableUi
+          number={table.number}
+          full={table.full}
+          key={table.id}
+          onClick={() => openSlider(table.id)}
+        />
       ))}
     </div>
   );

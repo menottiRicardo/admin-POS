@@ -1,14 +1,16 @@
 interface TableProps {
   full: boolean | null | undefined;
   number: number | null | undefined;
+  onClick: () => void
 }
 
-const TableUi = ({ full, number }: TableProps) => {
+const TableUi = ({ full, number, onClick }: TableProps) => {
   return (
     <div
       className={`w-20 h-20 ${
         full === true ? "bg-primary-400" : "bg-gray-200"
       } shadow-md rounded-md cursor-pointer`}
+      onClick={onClick}
     >
       <p
         className={`flex items-center justify-center h-full ${
