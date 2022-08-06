@@ -1,20 +1,11 @@
-import { API, Storage } from "aws-amplify";
+import {  Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  Product as ProductType,
-  ProductsOrdered,
-  UpdateOrderInput,
-} from "../src/API";
-import { updateOrder } from "../src/graphql/mutations";
-import { Status } from "../src/models";
 
 import {
-  currentOrderAtom,
-  OrderProducstAtom,
-  ProductListAtom,
-} from "../src/state/atoms";
-import { SaveProductAtom } from "../src/state/selectors";
+  Product as ProductType,
+} from "../src/API";
+
+import AddProduct from "./Modals/AddProduct";
 interface ProductProps {
   product: ProductType;
 }
@@ -27,67 +18,15 @@ export type Flavor = {
 const Product = ({ product }: ProductProps) => {
   const { price, name, description, image } = product;
   const [add, setAdd] = useState(false);
-  const currentOrder = useRecoilValue(currentOrderAtom);
+  
   const [productImage, setProductImage] = useState(image);
-  const [orderProductAtom, setOrderProductAtom] =
-    useRecoilState(ProductListAtom);
+  
 
   const open = () => {
-    setAdd(!add);
+    setAdd(true);
   };
 
-  const addNewProduct = async () => {
-    if (currentOrder.id === undefined) return;
-    if (currentOrder.products === null) {
-      const newProduct: any = {
-        id: product.id,
-        notes: "",
-        qty: "1",
-        price: product.price,
-        status: Status.ORDERED,
-      };
-      const createNewRelation = {
-        id: currentOrder.id,
-        products: [newProduct],
-        status: Status.ORDERED,
-      };
-
-      const created: any = await API.graphql({
-        query: updateOrder,
-        variables: { input: createNewRelation },
-      });
-
-      setOrderProductAtom(created.data.updateOrder.products);
-      return;
-    }
-
-    const checkIfThere: any = currentOrder.products?.filter(
-      (prod) => prod?.id === product.id
-    );
-
-    if (checkIfThere?.length > 0) return;
-
-    const newProduct: any = {
-      id: product.id,
-      notes: "",
-      qty: "1",
-    };
-
-    const newArray: any = currentOrder.products;
-
-    const createNewRelation: UpdateOrderInput = {
-      id: currentOrder.id,
-      products: newProduct,
-    };
-
-    const created: any = await API.graphql({
-      query: updateOrder,
-      variables: { input: createNewRelation },
-    });
-    setOrderProductAtom(created.data.updateOrder.products);
-
-    setAdd(false);
-  };
+  
 
   async function setPhoto() {
     const s3Image = await Storage.get(image as string);
@@ -128,16 +67,7 @@ const Product = ({ product }: ProductProps) => {
         <p className="font-bold text-xl">${price}</p>
 
         {add && (
-          <div className="relative">
-            {/* select size */}
-
-            <button
-              className="bg-primary-400 w-full rounded-xl py-2 shadow-md text-white font-medium mt-4 z-50"
-              onClick={addNewProduct}
-            >
-              Agregar
-            </button>
-          </div>
+          <AddProduct close={setAdd} product={product}/>
         )}
       </div>
     </div>

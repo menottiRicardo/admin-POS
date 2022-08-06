@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { useRecoilValue } from "recoil";
 import { UpdateOrderInput } from "../src/API";
 import { updateOrder } from "../src/graphql/mutations";
-import { Order } from "../src/models";
+import { Order, Status } from "../src/models";
 import { currentOrderAtom, ResProducts, TotalPrices } from "../src/state/atoms";
 
 const SmallProduct = ({
@@ -48,15 +48,16 @@ const SmallProduct = ({
     });
 
     const currProduct = await DataStore.query(Order, currentOrder.id);
-    await DataStore.save(
-      Order.copyOf(currProduct, (co) => {
+    const change = await DataStore.save(
+      Order.copyOf(currProduct as Order, (co) => {
         co.products = newProductList;
+        co.status = Status.ORDERED
       })
     );
   };
 
   useEffect(() => {
-    setPrices([...prices, product.price])
+    setPrices([...prices, product.price as number])
     if (quantity === qty) return;
 
     updateProduct();
