@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { CreateOrderInput, Order as OrderType, Status } from "../src/API";
 import { createOrder } from "../src/graphql/mutations";
 
-import { Order, Product, ProductsOrdered } from "../src/models";
+import { Order, ProductsOrdered } from "../src/models";
 import {
   currentOrderAtom,
   ordersAtom,
@@ -21,7 +21,7 @@ const Checkout = () => {
   const [orders, setOrders] = useRecoilState(ordersAtom);
   const [currentOrder, setCurrentOrder] = useRecoilState(currentOrderAtom);
   const [orderProducts, setOrderProducts] = useRecoilState(ProductListAtom);
-  const prices = useRecoilValue(TotalPrices)
+  const prices = useRecoilValue(TotalPrices);
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const router = useRouter();
@@ -48,7 +48,7 @@ const Checkout = () => {
   };
 
   const getProducts = async (order: OrderType) => {
-    console.log(order)
+    console.log(order);
     setCurrentOrder(order);
     setOrderProducts(order.products as ProductsOrdered[]);
   };
@@ -66,7 +66,6 @@ const Checkout = () => {
   }, [tableId]);
 
   const ordenar = async () => {
-  
     const updateOrder: any = await DataStore.save(
       Order.copyOf(currentOrder, (updated) => {
         updated.status = Status.ORDERED;
@@ -111,10 +110,22 @@ const Checkout = () => {
   };
 
   const getTotal = () => {
-    console.log(orderProducts, prices)
-  }
+    const sumWithInitial = orderProducts.reduce(
+      (previousValue, currentValue) =>
+        previousValue +
+        parseInt(currentValue.qty as any) * (currentValue.price as any),
+      0
+    );
 
-  getTotal()
+    return (
+      <div className="flex justify-between">
+        <p className="font-bold">Total</p>
+        ${sumWithInitial.toFixed(2)}
+      </div>
+    );
+  };
+
+  getTotal();
   return (
     <div>
       <p className="font-bold text-xl mt-4">Mesa #{tableNumber}</p>
@@ -154,7 +165,7 @@ const Checkout = () => {
         </div>
       )}
 
-      <div className="overflow-y-auto h-[28rem] mt-2">
+      <div className="overflow-y-auto h-[24rem] mt-2">
         {orderProducts &&
           orderProducts.map((product: ProductsOrdered) => (
             <SmallProduct
@@ -166,12 +177,9 @@ const Checkout = () => {
           ))}
       </div>
 
-
-
-
       <div className="bg-white rounded-md p-2">
-
-        {renderButton()}</div>
+        {getTotal()} {renderButton()}
+      </div>
     </div>
   );
 };

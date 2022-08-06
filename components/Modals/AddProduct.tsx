@@ -49,6 +49,7 @@ const AddProduct = ({ close,product }: any) => {
       notes:note,
       qty: "1",
       status: Status.ORDERED,
+      price: product.price
     };
 
     const newArray: any = currentOrder.products;
