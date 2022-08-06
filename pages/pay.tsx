@@ -7,6 +7,7 @@ import {
 import { GetServerSideProps } from "next";
 import React, { ReactElement, useEffect, useState } from "react";
 import LeftMenu from "../components/Layout/LeftMenu";
+import PrintOrder from "../components/PrintOrder";
 import OrderListSlider from "../components/SlideOvers/OrderListSlider";
 import TableUi from "../components/TableUi";
 import { Order } from "../src/API";
@@ -36,6 +37,8 @@ const Pay = () => {
   };
 
   return (
+    <>
+   <PrintOrder />
     <div className="grid grid-cols-8 p-4 gap-10">
       <OrderListSlider open={open} setOpen={setOpen} tableId={tableId} />
 
@@ -48,6 +51,7 @@ const Pay = () => {
         />
       ))}
     </div>
+    </>
   );
 };
 

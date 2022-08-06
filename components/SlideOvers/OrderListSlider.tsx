@@ -7,6 +7,7 @@ import { API, DataStore } from "aws-amplify";
 import { Status, UpdateOrderInput } from "../../src/API";
 import { MdFastfood, MdOutlineCheckCircle } from "react-icons/md";
 import { updateOrder } from "../../src/graphql/mutations";
+import PrintOrder from "../PrintOrder";
 
 const OrderListSlider = ({
   open,
@@ -131,12 +132,20 @@ const OrderListSlider = ({
                           </a>
                         ))}
                         {currentOrder !== undefined && (
-                          <button
-                            className="p-3 bg-primary-300 rounded-md text-white font-medium mt-4"
-                            onClick={payOrder}
-                          >
-                            Pagar {currentOrder.name} Orden
-                          </button>
+                          <div className="">
+                            <h1 className="font-bold text-lg">
+                              {currentOrder.name}
+                            </h1>
+                            <div className="flex justify-around">
+                              <button
+                                className="p-3 bg-primary-300 rounded-md text-white font-medium mt-4"
+                                onClick={payOrder}
+                              >
+                                Pagar Orden
+                              </button>
+                              <PrintOrder />
+                            </div>
+                          </div>
                         )}
                       </div>
                       {/* /End replace */}

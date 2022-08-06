@@ -5,7 +5,7 @@ import { Status, UpdateOrderInput } from "../../src/API";
 import { updateOrder } from "../../src/graphql/mutations";
 import { currentOrderAtom, ProductListAtom } from "../../src/state/atoms";
 
-const AddProduct = ({ close,product }: any) => {
+const AddProduct = ({ close, product }: any) => {
   const [note, setNote] = useState("");
   const currentOrder = useRecoilValue(currentOrderAtom);
   const [orderProductAtom, setOrderProductAtom] =
@@ -20,6 +20,7 @@ const AddProduct = ({ close,product }: any) => {
         qty: "1",
         price: product.price,
         status: Status.ORDERED,
+        name: product.name,
       };
       const createNewRelation = {
         id: currentOrder.id,
@@ -36,8 +37,6 @@ const AddProduct = ({ close,product }: any) => {
       return;
     }
 
-    
-
     const checkIfThere: any = currentOrder.products?.filter(
       (prod) => prod?.id === product.id
     );
@@ -46,10 +45,11 @@ const AddProduct = ({ close,product }: any) => {
 
     const newProduct: any = {
       id: product.id,
-      notes:note,
+      notes: note,
       qty: "1",
       status: Status.ORDERED,
-      price: product.price
+      price: product.price,
+      name: product.name
     };
 
     const newArray: any = currentOrder.products;
@@ -57,7 +57,7 @@ const AddProduct = ({ close,product }: any) => {
     const createNewRelation: UpdateOrderInput = {
       id: currentOrder.id,
       products: newProduct,
-      status: Status.CREATED
+      status: Status.CREATED,
     };
 
     const created: any = await API.graphql({

@@ -124,8 +124,6 @@ const Checkout = () => {
       </div>
     );
   };
-
-  getTotal();
   return (
     <div>
       <p className="font-bold text-xl mt-4">Mesa #{tableNumber}</p>
