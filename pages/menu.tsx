@@ -93,12 +93,13 @@ export async function getStaticProps({ req }: any) {
   const rawProduct: any = await SSR.API.graphql(graphqlOperation(listProducts));
 
   const products = await rawProduct.data.listProducts.items;
-  
+
   return {
     props: {
       categories,
       products,
     },
+    revalidate: 60,
   };
 }
 
