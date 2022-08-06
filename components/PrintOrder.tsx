@@ -68,7 +68,7 @@ const PrintOrder = ({ order }: any) => {
         Imprimir Precuenta
       </button>
       <div style={{ display: "none" }}>
-        <div className="bg-gray-300 w-[288px]" ref={componentRef}>
+        <div className="w-[288px] px-4 pb-10" ref={componentRef}>
           <h1 className="mt-4 font-bold text-xl text-center">
             Sunset Beach and Club
           </h1>
