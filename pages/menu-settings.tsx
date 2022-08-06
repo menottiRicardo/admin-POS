@@ -60,8 +60,8 @@ const MenuSettings = () => {
       </div>
 
       {/* products */}
-      <div className="mt-10 flex">
-        <div className="grid grid-cols-4 gap-4">
+      <div className="mt-10 flex w-full h-[37rem]">
+        <div className="grid grid-cols-4 gap-4 overflow-y-scroll xl:grid-colds-6 w-full">
           <div
             className="bg-gray-300 text-gray-500 shadow-md rounded-md w-48 h-44 flex items-center justify-center text-4xl border-dashed border-2"
             onClick={() => setOpenNewProduct(true)}
