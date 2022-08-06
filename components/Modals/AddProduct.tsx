@@ -34,7 +34,7 @@ const AddProduct = ({ close, product }: any) => {
       });
 
       setOrderProductAtom(created.data.updateOrder.products);
-      return;
+      return close(false);
     }
 
     const checkIfThere: any = currentOrder.products?.filter(
@@ -49,7 +49,7 @@ const AddProduct = ({ close, product }: any) => {
       qty: "1",
       status: Status.ORDERED,
       price: product.price,
-      name: product.name
+      name: product.name,
     };
 
     const newArray: any = currentOrder.products;
