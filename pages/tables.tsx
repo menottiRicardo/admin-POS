@@ -1,4 +1,4 @@
-import { DataStore } from "aws-amplify";
+import { DataStore, Predicates, SortDirection } from "aws-amplify";
 import { ReactElement, useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
@@ -14,7 +14,9 @@ const Tables = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const orderSubscription = DataStore.observeQuery(Table).subscribe((msg) => {
+    const orderSubscription = DataStore.observeQuery(Table, Predicates.ALL, {
+      sort: (t) => t.number(SortDirection.ASCENDING),
+    }).subscribe((msg) => {
       setTables(msg.items as Table[]);
     });
 
