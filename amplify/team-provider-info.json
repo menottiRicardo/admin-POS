@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "posbackend": {}
+        "posbackend": {},
+        "posbackendfcbeb286fcbeb286": {}
       }
     }
   }
