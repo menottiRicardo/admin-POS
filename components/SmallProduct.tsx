@@ -37,7 +37,6 @@ const SmallProduct = ({
   };
 
   const updateProduct = async () => {
-    console.log('here',)
     const newProductList = currentOrder.products?.map((prod) => {
       if (prod?.id !== product.id) return prod;
       const updated = {
@@ -63,7 +62,6 @@ const SmallProduct = ({
     updateProduct();
   }, [quantity]);
 
-  console.log(product)
   return (
     <div className="bg-white rounded-md flex my-2 items-center px-2 py-4">
       <div className="ml-2 flex justify-between w-full items-center">

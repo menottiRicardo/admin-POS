@@ -12,7 +12,7 @@ const AddProduct = ({ close, product }: any) => {
     useRecoilState(ProductListAtom);
 
   const addNewProduct = async () => {
-    if (currentOrder.id === undefined) return;
+    if (currentOrder.id === undefined) return 
     if (currentOrder.products === null) {
       const newProduct: any = {
         id: product.id,
