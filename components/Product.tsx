@@ -1,4 +1,3 @@
-import { Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
 
 import { Product as ProductType } from "../src/API";
@@ -17,39 +16,13 @@ const Product = ({ product }: ProductProps) => {
   const { price, name, description, image } = product;
   const [add, setAdd] = useState(false);
 
-  const [productImage, setProductImage] = useState(image);
-
   const open = () => {
     setAdd(true);
   };
 
-  async function setPhoto() {
-    const s3Image = await Storage.get(image as string);
-    const req = new Request(s3Image);
-    setProductImage(req.url);
-  }
-
-  useEffect(() => {
-    setPhoto();
-  }, [image]);
-
   return (
-    <div
-      className={`bg-white shadow-md rounded-md w-48 my-3`}
-      onClick={open}
-    >
+    <div className={`bg-white shadow-md rounded-md w-48 my-3`} onClick={open}>
       {/* image */}
-      {image !== "" ? (
-        <div className="h-28 w-48 bg-gray-400 rounded-t-md relative">
-          <img
-            src={productImage ?? ""}
-            className="rounded-t-md"
-            style={{ objectFit: "fill", width: "20rem", height: "7rem" }}
-          />
-        </div>
-      ) : (
-        <div className="h-28 w-48 bg-gray-400 rounded-t-md relative"></div>
-      )}
 
       {/* )} */}
 

@@ -25,42 +25,73 @@ const SmallProduct = ({
     products.filter((prod) => prod.id === id)[0]
   );
 
-  const setLess = () => {
+  const addOne = async () => {
+    const newQty = parseInt(quantity) + 1;
+    setQuantity(newQty.toString());
+    await updateProductMore(newQty.toString());
+  };
+
+  const setLess = async () => {
     if (parseInt(quantity) === 0) return;
     const newQty = parseInt(quantity) - 1;
     setQuantity(newQty.toString());
+    await updateProduct(newQty.toString());
   };
 
-  const addOne = () => {
-    const newQty = parseInt(quantity) + 1;
-    setQuantity(newQty.toString());
-  };
-
-  const updateProduct = async () => {
-    const newProductList = currentOrder.products?.map((prod) => {
-      if (prod?.id !== product.id) return prod;
+  const updateProduct = async (qty: string) => {
+    console.log(currentOrder)
+    const newProductList: any = currentOrder.products?.map((prod) => {
+      if (prod?.id !== product.id) {
+        return prod;
+      }
+      if (qty === "0") {
+        return undefined;
+      }
       const updated = {
         ...prod,
-        qty: quantity,
+        qty: qty,
       };
       return updated;
     });
+  
 
+    const newList = newProductList.filter((prod: any) => prod !== undefined);
+    console.log('updateless', newList)
     const currProduct = await DataStore.query(Order, currentOrder.id);
     const change = await DataStore.save(
       Order.copyOf(currProduct as Order, (co) => {
-        co.products = newProductList;
-        co.status = Status.ORDERED
+        co.products = newList;
       })
     );
   };
 
-  useEffect(() => {
-    setPrices([...prices, product?.price as number ?? 0])
-    if (quantity === qty) return;
+  const updateProductMore = async (qty: string) => {
+    const newProductList = currentOrder.products?.map((prod) => {
+      if (prod?.id !== product.id) {
+        return prod;
+      }
+      const updated = {
+        ...prod,
+        qty: qty,
+      };
+      return updated;
+    });
+    console.log('prodiu',newProductList)
 
-    updateProduct();
-  }, [quantity]);
+    const currProduct = await DataStore.query(Order, currentOrder.id);
+    if (
+      currProduct?.status === Status.PREPARED ||
+      currProduct?.status === Status.ORDERED
+    ) {
+      const change = await DataStore.save(
+        Order.copyOf(currProduct as Order, (co) => {
+          co.products = newProductList;
+          co.status = Status.ORDERED;
+        })
+      );
+      console.log(change)
+    }
+  }
 
   return (
     <div className="bg-white rounded-md flex my-2 items-center px-2 py-4">

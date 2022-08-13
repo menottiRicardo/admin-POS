@@ -92,7 +92,7 @@ export async function getStaticProps({ req }: any) {
   );
   const categories = await rawCategory.data.listCategories.items;
 
-  const rawProduct: any = await SSR.API.graphql(graphqlOperation(listProducts));
+  const rawProduct: any = await SSR.API.graphql(graphqlOperation(listProducts, {limit: 200}));
 
   const products = await rawProduct.data.listProducts.items;
 

@@ -8,7 +8,20 @@ import { Status, UpdateOrderInput } from "../../src/API";
 import { MdFastfood, MdOutlineCheckCircle } from "react-icons/md";
 import { updateOrder } from "../../src/graphql/mutations";
 import PrintOrder from "../PrintOrder";
-
+const filterOrders = (orders: Order[]) => {
+  const filtered = orders.filter((order) => {
+    if (
+      order.status === Status.CREATED ||
+      order.status === Status.ORDERED ||
+      order.status === Status.PREPARED
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+  return filtered;
+};
 const OrderListSlider = ({
   open,
   setOpen,
@@ -27,7 +40,7 @@ const OrderListSlider = ({
     const orderSubscription = DataStore.observeQuery(Order, (o) =>
       o.tableID("eq", tableId)
     ).subscribe((msg) => {
-      setOrders(msg.items as Order[]);
+      setOrders(filterOrders(msg.items as Order[]));
     });
 
     return () => {
@@ -116,15 +129,13 @@ const OrderListSlider = ({
                       <div className="absolute inset-0 px-4 sm:px-6">
                         {orders.map((order) => (
                           <a
-                            className="relative block p-8 pb-18 border-t-4 border-primary-600 rounded-sm shadow-xl my-2"
+                            className={`relative block p-8 pb-18 border-t-4 border-primary-600 rounded-sm shadow-xl my-2 ${
+                              order.id === currentOrder?.id ? "bg-gray-50" : ""
+                            }`}
                             key={order.id}
                             onClick={() => setCurrentOrder(order)}
                           >
                             <h5 className="text-xl font-bold">{order.name}</h5>
-                            <p className="mt-4 font-medium text-gray-500">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Repudiandae, provident.
-                            </p>
 
                             <span className="absolute bottom-8 right-8">
                               {renderIcon(order)}
@@ -143,7 +154,7 @@ const OrderListSlider = ({
                               >
                                 Pagar Orden
                               </button>
-                              <PrintOrder order={currentOrder}/>
+                              <PrintOrder order={currentOrder} />
                             </div>
                           </div>
                         )}
