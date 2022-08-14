@@ -23,10 +23,11 @@ const NewProduct = ({
     const NewProduct: CreateProductInput = {
       name,
       price,
-      image: fileName,
+      image: '',
       categoryID: category.id
     };
-    const uploadFile = await Storage.put(fileName, selectedFile);
+    console.log(NewProduct)
+    
 
     const created: any = await API.graphql({
       query: createProduct,
@@ -38,11 +39,7 @@ const NewProduct = ({
     setOpen(false);
   };
 
-  const handleFileUpdate = (e: any) => {
-    setSelectedFile(e.target.files[0]);
-
-    setFileName(e.target.files[0].name);
-  };
+ 
 
   return (
     <>
@@ -84,7 +81,7 @@ const NewProduct = ({
                 />
               </div>
 
-              <div className="flex justify-center">
+              {/* <div className="flex justify-center">
                 <div className="">
                   <input
                     className="block w-full text-md text-gray-500 file:py-2 file:px-6 file:rounded file:border-0 file:bg-primary-600"
@@ -93,7 +90,7 @@ const NewProduct = ({
                     onChange={handleFileUpdate}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <button
                 className="bg-primary-300 px-5 py-2 rounded-md text-white font-medium text-xl mt-6 w-full"
