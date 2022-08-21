@@ -2,6 +2,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createDiscounts = /* GraphQL */ `
+  mutation CreateDiscounts(
+    $input: CreateDiscountsInput!
+    $condition: ModelDiscountsConditionInput
+  ) {
+    createDiscounts(input: $input, condition: $condition) {
+      id
+      nam
+      code
+      percentage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateDiscounts = /* GraphQL */ `
+  mutation UpdateDiscounts(
+    $input: UpdateDiscountsInput!
+    $condition: ModelDiscountsConditionInput
+  ) {
+    updateDiscounts(input: $input, condition: $condition) {
+      id
+      nam
+      code
+      percentage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteDiscounts = /* GraphQL */ `
+  mutation DeleteDiscounts(
+    $input: DeleteDiscountsInput!
+    $condition: ModelDiscountsConditionInput
+  ) {
+    deleteDiscounts(input: $input, condition: $condition) {
+      id
+      nam
+      code
+      percentage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const createIngredient = /* GraphQL */ `
   mutation CreateIngredient(
     $input: CreateIngredientInput!
@@ -470,7 +524,10 @@ export const createTable = /* GraphQL */ `
             price
             status
             name
+            category
+            remaing
           }
+          paymentId
           createdAt
           updatedAt
           _version
@@ -480,6 +537,7 @@ export const createTable = /* GraphQL */ `
         nextToken
         startedAt
       }
+      currentOrder
       createdAt
       updatedAt
       _version
@@ -512,7 +570,10 @@ export const updateTable = /* GraphQL */ `
             price
             status
             name
+            category
+            remaing
           }
+          paymentId
           createdAt
           updatedAt
           _version
@@ -522,6 +583,7 @@ export const updateTable = /* GraphQL */ `
         nextToken
         startedAt
       }
+      currentOrder
       createdAt
       updatedAt
       _version
@@ -554,7 +616,10 @@ export const deleteTable = /* GraphQL */ `
             price
             status
             name
+            category
+            remaing
           }
+          paymentId
           createdAt
           updatedAt
           _version
@@ -564,6 +629,7 @@ export const deleteTable = /* GraphQL */ `
         nextToken
         startedAt
       }
+      currentOrder
       createdAt
       updatedAt
       _version
@@ -590,7 +656,10 @@ export const createOrder = /* GraphQL */ `
         price
         status
         name
+        category
+        remaing
       }
+      paymentId
       createdAt
       updatedAt
       _version
@@ -617,7 +686,10 @@ export const updateOrder = /* GraphQL */ `
         price
         status
         name
+        category
+        remaing
       }
+      paymentId
       createdAt
       updatedAt
       _version
@@ -644,7 +716,10 @@ export const deleteOrder = /* GraphQL */ `
         price
         status
         name
+        category
+        remaing
       }
+      paymentId
       createdAt
       updatedAt
       _version

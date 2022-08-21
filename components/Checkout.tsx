@@ -170,7 +170,7 @@ const Checkout = () => {
               key={product.id}
               id={product.id as string}
               notes={product.notes as string}
-              qty={product.qty as string}
+              qty={product.qty as number}
             ></SmallProduct>
           ))}
       </div>

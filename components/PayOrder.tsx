@@ -1,14 +1,22 @@
+import { DataStore } from "aws-amplify";
 import React, { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import { Order } from "../src/API";
 
-const PrintOrder = ({ order }: { order: any }) => {
+const PayOrder = ({ order, payOrder }: any) => {
   const componentRef = useRef(null);
   console.log(order);
   const [products, setProducts] = useState([]);
+
+  const pay = async () => {
+
+    await handlePrint()
+    await payOrder()
+  }
+  
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
+
 
   const prodTotal = (qty: string, price: number) => {
     const total = parseInt(qty) * price;
@@ -69,9 +77,9 @@ const PrintOrder = ({ order }: { order: any }) => {
     <>
       <button
         className="p-3 bg-primary-300 rounded-md text-white font-medium mt-4"
-        onClick={handlePrint}
+        onClick={pay}
       >
-        Imprimir Precuenta
+       Pagar Orden
       </button>
       <div style={{ display: "none" }}>
         <div className="w-[288px] px-4 pb-10" ref={componentRef}>
@@ -79,10 +87,12 @@ const PrintOrder = ({ order }: { order: any }) => {
             Sunset Beach and Club
           </h1>
 
-          <h2>Precuenta {order.id}</h2>
+          <h2>Cuenta {order.id}</h2>
           <h2 className="border-b-2 border-dashed">Cliente {order.name}</h2>
 
-          {order.products.map((prod: any) => (
+          
+
+          {order.products.map((prod :any) => (
             <div className="my-4" key={prod.id}>
               <p className="font-medium text-xl">{prod.name}</p>
               <div className="flex justify-between">
@@ -101,4 +111,4 @@ const PrintOrder = ({ order }: { order: any }) => {
   );
 };
 
-export default PrintOrder;
+export default PayOrder;

@@ -8,6 +8,7 @@ import { Status, UpdateOrderInput } from "../../src/API";
 import { MdFastfood, MdOutlineCheckCircle } from "react-icons/md";
 import { updateOrder } from "../../src/graphql/mutations";
 import PrintOrder from "../PrintOrder";
+import PayOrder from "../PayOrder";
 const filterOrders = (orders: Order[]) => {
   const filtered = orders.filter((order) => {
     if (
@@ -129,8 +130,8 @@ const OrderListSlider = ({
                       <div className="absolute inset-0 px-4 sm:px-6">
                         {orders.map((order) => (
                           <a
-                            className={`relative block p-8 pb-18 border-t-4 border-primary-600 rounded-sm shadow-xl my-2 ${
-                              order.id === currentOrder?.id ? "bg-gray-50" : ""
+                            className={`relative block p-8 pb-18 border-t-4 border-primary-600 cursor-pointer rounded-sm shadow-xl my-2 ${
+                              order.id === currentOrder?.id ? "bg-gray-100" : ""
                             }`}
                             key={order.id}
                             onClick={() => setCurrentOrder(order)}
@@ -142,18 +143,17 @@ const OrderListSlider = ({
                             </span>
                           </a>
                         ))}
+
                         {currentOrder !== undefined && (
-                          <div className="">
+                          <div className="border-t border-dashed">
                             <h1 className="font-bold text-lg">
                               {currentOrder.name}
                             </h1>
                             <div className="flex justify-around">
-                              <button
-                                className="p-3 bg-primary-300 rounded-md text-white font-medium mt-4"
-                                onClick={payOrder}
-                              >
-                                Pagar Orden
-                              </button>
+                              <PayOrder
+                                order={currentOrder}
+                                payOrder={payOrder}
+                              />
                               <PrintOrder order={currentOrder} />
                             </div>
                           </div>

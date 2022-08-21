@@ -10,9 +10,10 @@ const Status = {
   "CANCELLED": "CANCELLED"
 };
 
-const { Ingredient, Product, Category, Table, Order, ProductIngredient, ProductsOrdered } = initSchema(schema);
+const { Discounts, Ingredient, Product, Category, Table, Order, ProductIngredient, ProductsOrdered } = initSchema(schema);
 
 export {
+  Discounts,
   Ingredient,
   Product,
   Category,

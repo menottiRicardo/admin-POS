@@ -2,11 +2,54 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateDiscounts = /* GraphQL */ `
+  subscription OnCreateDiscounts {
+    onCreateDiscounts {
+      id
+      nam
+      code
+      percentage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateDiscounts = /* GraphQL */ `
+  subscription OnUpdateDiscounts {
+    onUpdateDiscounts {
+      id
+      nam
+      code
+      percentage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteDiscounts = /* GraphQL */ `
+  subscription OnDeleteDiscounts {
+    onDeleteDiscounts {
+      id
+      nam
+      code
+      percentage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateIngredient = /* GraphQL */ `
-  subscription OnCreateIngredient(
-    $filter: ModelSubscriptionIngredientFilterInput
-  ) {
-    onCreateIngredient(filter: $filter) {
+  subscription OnCreateIngredient {
+    onCreateIngredient {
       id
       name
       qty
@@ -56,10 +99,8 @@ export const onCreateIngredient = /* GraphQL */ `
   }
 `;
 export const onUpdateIngredient = /* GraphQL */ `
-  subscription OnUpdateIngredient(
-    $filter: ModelSubscriptionIngredientFilterInput
-  ) {
-    onUpdateIngredient(filter: $filter) {
+  subscription OnUpdateIngredient {
+    onUpdateIngredient {
       id
       name
       qty
@@ -109,10 +150,8 @@ export const onUpdateIngredient = /* GraphQL */ `
   }
 `;
 export const onDeleteIngredient = /* GraphQL */ `
-  subscription OnDeleteIngredient(
-    $filter: ModelSubscriptionIngredientFilterInput
-  ) {
-    onDeleteIngredient(filter: $filter) {
+  subscription OnDeleteIngredient {
+    onDeleteIngredient {
       id
       name
       qty
@@ -162,8 +201,8 @@ export const onDeleteIngredient = /* GraphQL */ `
   }
 `;
 export const onCreateCategory = /* GraphQL */ `
-  subscription OnCreateCategory($filter: ModelSubscriptionCategoryFilterInput) {
-    onCreateCategory(filter: $filter) {
+  subscription OnCreateCategory {
+    onCreateCategory {
       id
       name
       Products {
@@ -196,8 +235,8 @@ export const onCreateCategory = /* GraphQL */ `
   }
 `;
 export const onUpdateCategory = /* GraphQL */ `
-  subscription OnUpdateCategory($filter: ModelSubscriptionCategoryFilterInput) {
-    onUpdateCategory(filter: $filter) {
+  subscription OnUpdateCategory {
+    onUpdateCategory {
       id
       name
       Products {
@@ -230,8 +269,8 @@ export const onUpdateCategory = /* GraphQL */ `
   }
 `;
 export const onDeleteCategory = /* GraphQL */ `
-  subscription OnDeleteCategory($filter: ModelSubscriptionCategoryFilterInput) {
-    onDeleteCategory(filter: $filter) {
+  subscription OnDeleteCategory {
+    onDeleteCategory {
       id
       name
       Products {
@@ -264,8 +303,8 @@ export const onDeleteCategory = /* GraphQL */ `
   }
 `;
 export const onCreateProduct = /* GraphQL */ `
-  subscription OnCreateProduct($filter: ModelSubscriptionProductFilterInput) {
-    onCreateProduct(filter: $filter) {
+  subscription OnCreateProduct {
+    onCreateProduct {
       id
       name
       price
@@ -318,8 +357,8 @@ export const onCreateProduct = /* GraphQL */ `
   }
 `;
 export const onUpdateProduct = /* GraphQL */ `
-  subscription OnUpdateProduct($filter: ModelSubscriptionProductFilterInput) {
-    onUpdateProduct(filter: $filter) {
+  subscription OnUpdateProduct {
+    onUpdateProduct {
       id
       name
       price
@@ -372,8 +411,8 @@ export const onUpdateProduct = /* GraphQL */ `
   }
 `;
 export const onDeleteProduct = /* GraphQL */ `
-  subscription OnDeleteProduct($filter: ModelSubscriptionProductFilterInput) {
-    onDeleteProduct(filter: $filter) {
+  subscription OnDeleteProduct {
+    onDeleteProduct {
       id
       name
       price
@@ -426,8 +465,8 @@ export const onDeleteProduct = /* GraphQL */ `
   }
 `;
 export const onCreateTable = /* GraphQL */ `
-  subscription OnCreateTable($filter: ModelSubscriptionTableFilterInput) {
-    onCreateTable(filter: $filter) {
+  subscription OnCreateTable {
+    onCreateTable {
       id
       full
       number
@@ -446,7 +485,10 @@ export const onCreateTable = /* GraphQL */ `
             price
             status
             name
+            category
+            remaing
           }
+          paymentId
           createdAt
           updatedAt
           _version
@@ -456,6 +498,7 @@ export const onCreateTable = /* GraphQL */ `
         nextToken
         startedAt
       }
+      currentOrder
       createdAt
       updatedAt
       _version
@@ -465,8 +508,8 @@ export const onCreateTable = /* GraphQL */ `
   }
 `;
 export const onUpdateTable = /* GraphQL */ `
-  subscription OnUpdateTable($filter: ModelSubscriptionTableFilterInput) {
-    onUpdateTable(filter: $filter) {
+  subscription OnUpdateTable {
+    onUpdateTable {
       id
       full
       number
@@ -485,7 +528,10 @@ export const onUpdateTable = /* GraphQL */ `
             price
             status
             name
+            category
+            remaing
           }
+          paymentId
           createdAt
           updatedAt
           _version
@@ -495,6 +541,7 @@ export const onUpdateTable = /* GraphQL */ `
         nextToken
         startedAt
       }
+      currentOrder
       createdAt
       updatedAt
       _version
@@ -504,8 +551,8 @@ export const onUpdateTable = /* GraphQL */ `
   }
 `;
 export const onDeleteTable = /* GraphQL */ `
-  subscription OnDeleteTable($filter: ModelSubscriptionTableFilterInput) {
-    onDeleteTable(filter: $filter) {
+  subscription OnDeleteTable {
+    onDeleteTable {
       id
       full
       number
@@ -524,7 +571,10 @@ export const onDeleteTable = /* GraphQL */ `
             price
             status
             name
+            category
+            remaing
           }
+          paymentId
           createdAt
           updatedAt
           _version
@@ -534,6 +584,7 @@ export const onDeleteTable = /* GraphQL */ `
         nextToken
         startedAt
       }
+      currentOrder
       createdAt
       updatedAt
       _version
@@ -543,8 +594,8 @@ export const onDeleteTable = /* GraphQL */ `
   }
 `;
 export const onCreateOrder = /* GraphQL */ `
-  subscription OnCreateOrder($filter: ModelSubscriptionOrderFilterInput) {
-    onCreateOrder(filter: $filter) {
+  subscription OnCreateOrder {
+    onCreateOrder {
       id
       name
       total
@@ -557,7 +608,10 @@ export const onCreateOrder = /* GraphQL */ `
         price
         status
         name
+        category
+        remaing
       }
+      paymentId
       createdAt
       updatedAt
       _version
@@ -567,8 +621,8 @@ export const onCreateOrder = /* GraphQL */ `
   }
 `;
 export const onUpdateOrder = /* GraphQL */ `
-  subscription OnUpdateOrder($filter: ModelSubscriptionOrderFilterInput) {
-    onUpdateOrder(filter: $filter) {
+  subscription OnUpdateOrder {
+    onUpdateOrder {
       id
       name
       total
@@ -581,7 +635,10 @@ export const onUpdateOrder = /* GraphQL */ `
         price
         status
         name
+        category
+        remaing
       }
+      paymentId
       createdAt
       updatedAt
       _version
@@ -591,8 +648,8 @@ export const onUpdateOrder = /* GraphQL */ `
   }
 `;
 export const onDeleteOrder = /* GraphQL */ `
-  subscription OnDeleteOrder($filter: ModelSubscriptionOrderFilterInput) {
-    onDeleteOrder(filter: $filter) {
+  subscription OnDeleteOrder {
+    onDeleteOrder {
       id
       name
       total
@@ -605,7 +662,10 @@ export const onDeleteOrder = /* GraphQL */ `
         price
         status
         name
+        category
+        remaing
       }
+      paymentId
       createdAt
       updatedAt
       _version
@@ -615,10 +675,8 @@ export const onDeleteOrder = /* GraphQL */ `
   }
 `;
 export const onCreateProductIngredient = /* GraphQL */ `
-  subscription OnCreateProductIngredient(
-    $filter: ModelSubscriptionProductIngredientFilterInput
-  ) {
-    onCreateProductIngredient(filter: $filter) {
+  subscription OnCreateProductIngredient {
+    onCreateProductIngredient {
       id
       ingredientID
       productID
@@ -682,10 +740,8 @@ export const onCreateProductIngredient = /* GraphQL */ `
   }
 `;
 export const onUpdateProductIngredient = /* GraphQL */ `
-  subscription OnUpdateProductIngredient(
-    $filter: ModelSubscriptionProductIngredientFilterInput
-  ) {
-    onUpdateProductIngredient(filter: $filter) {
+  subscription OnUpdateProductIngredient {
+    onUpdateProductIngredient {
       id
       ingredientID
       productID
@@ -749,10 +805,8 @@ export const onUpdateProductIngredient = /* GraphQL */ `
   }
 `;
 export const onDeleteProductIngredient = /* GraphQL */ `
-  subscription OnDeleteProductIngredient(
-    $filter: ModelSubscriptionProductIngredientFilterInput
-  ) {
-    onDeleteProductIngredient(filter: $filter) {
+  subscription OnDeleteProductIngredient {
+    onDeleteProductIngredient {
       id
       ingredientID
       productID

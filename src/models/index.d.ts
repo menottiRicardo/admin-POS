@@ -11,11 +11,17 @@ export enum Status {
 export declare class ProductsOrdered {
   readonly id?: string | null;
   readonly notes?: string | null;
-  readonly qty?: string | null;
+  readonly qty?: number | null;
   readonly price?: number | null;
   readonly status?: Status | keyof typeof Status | null;
   readonly name?: string | null;
+  readonly category?: string | null;
+  readonly remaing?: number | null;
   constructor(init: ModelInit<ProductsOrdered>);
+}
+
+type DiscountsMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
 type IngredientMetaData = {
@@ -40,6 +46,17 @@ type OrderMetaData = {
 
 type ProductIngredientMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class Discounts {
+  readonly id: string;
+  readonly nam?: string | null;
+  readonly code?: string | null;
+  readonly percentage?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Discounts, DiscountsMetaData>);
+  static copyOf(source: Discounts, mutator: (draft: MutableModel<Discounts, DiscountsMetaData>) => MutableModel<Discounts, DiscountsMetaData> | void): Discounts;
 }
 
 export declare class Ingredient {
@@ -83,6 +100,7 @@ export declare class Table {
   readonly number?: number | null;
   readonly seats?: string | null;
   readonly Orders?: (Order | null)[] | null;
+  readonly currentOrder?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Table, TableMetaData>);
@@ -96,6 +114,8 @@ export declare class Order {
   readonly status?: Status | keyof typeof Status | null;
   readonly tableID: string;
   readonly products?: (ProductsOrdered | null)[] | null;
+  readonly paymentId?: string | null;
+  readonly mesero?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Order, OrderMetaData>);

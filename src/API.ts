@@ -2,19 +2,21 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateIngredientInput = {
+export type CreateDiscountsInput = {
   id?: string | null,
-  name?: string | null,
-  qty?: number | null,
+  nam?: string | null,
+  code?: string | null,
+  percentage?: string | null,
   _version?: number | null,
 };
 
-export type ModelIngredientConditionInput = {
-  name?: ModelStringInput | null,
-  qty?: ModelIntInput | null,
-  and?: Array< ModelIngredientConditionInput | null > | null,
-  or?: Array< ModelIngredientConditionInput | null > | null,
-  not?: ModelIngredientConditionInput | null,
+export type ModelDiscountsConditionInput = {
+  nam?: ModelStringInput | null,
+  code?: ModelStringInput | null,
+  percentage?: ModelStringInput | null,
+  and?: Array< ModelDiscountsConditionInput | null > | null,
+  or?: Array< ModelDiscountsConditionInput | null > | null,
+  not?: ModelDiscountsConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -55,6 +57,47 @@ export type ModelSizeInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
+};
+
+export type Discounts = {
+  __typename: "Discounts",
+  id: string,
+  nam?: string | null,
+  code?: string | null,
+  percentage?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type UpdateDiscountsInput = {
+  id: string,
+  nam?: string | null,
+  code?: string | null,
+  percentage?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteDiscountsInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateIngredientInput = {
+  id?: string | null,
+  name?: string | null,
+  qty?: number | null,
+  _version?: number | null,
+};
+
+export type ModelIngredientConditionInput = {
+  name?: ModelStringInput | null,
+  qty?: ModelIntInput | null,
+  and?: Array< ModelIngredientConditionInput | null > | null,
+  or?: Array< ModelIngredientConditionInput | null > | null,
+  not?: ModelIngredientConditionInput | null,
 };
 
 export type ModelIntInput = {
@@ -243,6 +286,7 @@ export type CreateTableInput = {
   full?: boolean | null,
   number?: number | null,
   seats?: string | null,
+  currentOrder?: string | null,
   _version?: number | null,
 };
 
@@ -250,6 +294,7 @@ export type ModelTableConditionInput = {
   full?: ModelBooleanInput | null,
   number?: ModelIntInput | null,
   seats?: ModelStringInput | null,
+  currentOrder?: ModelStringInput | null,
   and?: Array< ModelTableConditionInput | null > | null,
   or?: Array< ModelTableConditionInput | null > | null,
   not?: ModelTableConditionInput | null,
@@ -269,6 +314,7 @@ export type Table = {
   number?: number | null,
   seats?: string | null,
   Orders?: ModelOrderConnection | null,
+  currentOrder?: string | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -291,6 +337,7 @@ export type Order = {
   status?: Status | null,
   tableID: string,
   products?:  Array<ProductsOrdered | null > | null,
+  paymentId?: string | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -311,10 +358,12 @@ export type ProductsOrdered = {
   __typename: "ProductsOrdered",
   id?: string | null,
   notes?: string | null,
-  qty?: string | null,
+  qty?: number | null,
   price?: number | null,
   status?: Status | null,
   name?: string | null,
+  category?: string | null,
+  remaing?: number | null,
 };
 
 export type UpdateTableInput = {
@@ -322,6 +371,7 @@ export type UpdateTableInput = {
   full?: boolean | null,
   number?: number | null,
   seats?: string | null,
+  currentOrder?: string | null,
   _version?: number | null,
 };
 
@@ -337,16 +387,19 @@ export type CreateOrderInput = {
   status?: Status | null,
   tableID: string,
   products?: Array< ProductsOrderedInput | null > | null,
+  paymentId?: string | null,
   _version?: number | null,
 };
 
 export type ProductsOrderedInput = {
   id?: string | null,
   notes?: string | null,
-  qty?: string | null,
+  qty?: number | null,
   price?: number | null,
   status?: Status | null,
   name?: string | null,
+  category?: string | null,
+  remaing?: number | null,
 };
 
 export type ModelOrderConditionInput = {
@@ -354,6 +407,7 @@ export type ModelOrderConditionInput = {
   total?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   tableID?: ModelIDInput | null,
+  paymentId?: ModelStringInput | null,
   and?: Array< ModelOrderConditionInput | null > | null,
   or?: Array< ModelOrderConditionInput | null > | null,
   not?: ModelOrderConditionInput | null,
@@ -371,6 +425,7 @@ export type UpdateOrderInput = {
   status?: Status | null,
   tableID?: string | null,
   products?: Array< ProductsOrderedInput | null > | null,
+  paymentId?: string | null,
   _version?: number | null,
 };
 
@@ -404,6 +459,23 @@ export type UpdateProductIngredientInput = {
 export type DeleteProductIngredientInput = {
   id: string,
   _version?: number | null,
+};
+
+export type ModelDiscountsFilterInput = {
+  id?: ModelIDInput | null,
+  nam?: ModelStringInput | null,
+  code?: ModelStringInput | null,
+  percentage?: ModelStringInput | null,
+  and?: Array< ModelDiscountsFilterInput | null > | null,
+  or?: Array< ModelDiscountsFilterInput | null > | null,
+  not?: ModelDiscountsFilterInput | null,
+};
+
+export type ModelDiscountsConnection = {
+  __typename: "ModelDiscountsConnection",
+  items:  Array<Discounts | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelIngredientFilterInput = {
@@ -454,6 +526,7 @@ export type ModelTableFilterInput = {
   full?: ModelBooleanInput | null,
   number?: ModelIntInput | null,
   seats?: ModelStringInput | null,
+  currentOrder?: ModelStringInput | null,
   and?: Array< ModelTableFilterInput | null > | null,
   or?: Array< ModelTableFilterInput | null > | null,
   not?: ModelTableFilterInput | null,
@@ -472,6 +545,7 @@ export type ModelOrderFilterInput = {
   total?: ModelFloatInput | null,
   status?: ModelStatusInput | null,
   tableID?: ModelIDInput | null,
+  paymentId?: ModelStringInput | null,
   and?: Array< ModelOrderFilterInput | null > | null,
   or?: Array< ModelOrderFilterInput | null > | null,
   not?: ModelOrderFilterInput | null,
@@ -486,116 +560,64 @@ export type ModelProductIngredientFilterInput = {
   not?: ModelProductIngredientFilterInput | null,
 };
 
-export type ModelSubscriptionIngredientFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  qty?: ModelSubscriptionIntInput | null,
-  and?: Array< ModelSubscriptionIngredientFilterInput | null > | null,
-  or?: Array< ModelSubscriptionIngredientFilterInput | null > | null,
+export type CreateDiscountsMutationVariables = {
+  input: CreateDiscountsInput,
+  condition?: ModelDiscountsConditionInput | null,
 };
 
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
+export type CreateDiscountsMutation = {
+  createDiscounts?:  {
+    __typename: "Discounts",
+    id: string,
+    nam?: string | null,
+    code?: string | null,
+    percentage?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
 };
 
-export type ModelSubscriptionStringInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
+export type UpdateDiscountsMutationVariables = {
+  input: UpdateDiscountsInput,
+  condition?: ModelDiscountsConditionInput | null,
 };
 
-export type ModelSubscriptionIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
+export type UpdateDiscountsMutation = {
+  updateDiscounts?:  {
+    __typename: "Discounts",
+    id: string,
+    nam?: string | null,
+    code?: string | null,
+    percentage?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
 };
 
-export type ModelSubscriptionCategoryFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCategoryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCategoryFilterInput | null > | null,
+export type DeleteDiscountsMutationVariables = {
+  input: DeleteDiscountsInput,
+  condition?: ModelDiscountsConditionInput | null,
 };
 
-export type ModelSubscriptionProductFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  price?: ModelSubscriptionFloatInput | null,
-  image?: ModelSubscriptionStringInput | null,
-  description?: ModelSubscriptionStringInput | null,
-  categoryID?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionProductFilterInput | null > | null,
-  or?: Array< ModelSubscriptionProductFilterInput | null > | null,
-};
-
-export type ModelSubscriptionFloatInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  in?: Array< number | null > | null,
-  notIn?: Array< number | null > | null,
-};
-
-export type ModelSubscriptionTableFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  full?: ModelSubscriptionBooleanInput | null,
-  number?: ModelSubscriptionIntInput | null,
-  seats?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionTableFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTableFilterInput | null > | null,
-};
-
-export type ModelSubscriptionBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-};
-
-export type ModelSubscriptionOrderFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  total?: ModelSubscriptionFloatInput | null,
-  status?: ModelSubscriptionStringInput | null,
-  tableID?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionOrderFilterInput | null > | null,
-  or?: Array< ModelSubscriptionOrderFilterInput | null > | null,
-};
-
-export type ModelSubscriptionProductIngredientFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  ingredientID?: ModelSubscriptionIDInput | null,
-  productID?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionProductIngredientFilterInput | null > | null,
-  or?: Array< ModelSubscriptionProductIngredientFilterInput | null > | null,
+export type DeleteDiscountsMutation = {
+  deleteDiscounts?:  {
+    __typename: "Discounts",
+    id: string,
+    nam?: string | null,
+    code?: string | null,
+    percentage?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
 };
 
 export type CreateIngredientMutationVariables = {
@@ -1118,11 +1140,14 @@ export type CreateTableMutation = {
           __typename: "ProductsOrdered",
           id?: string | null,
           notes?: string | null,
-          qty?: string | null,
+          qty?: number | null,
           price?: number | null,
           status?: Status | null,
           name?: string | null,
+          category?: string | null,
+          remaing?: number | null,
         } | null > | null,
+        paymentId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1132,6 +1157,7 @@ export type CreateTableMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    currentOrder?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1165,11 +1191,14 @@ export type UpdateTableMutation = {
           __typename: "ProductsOrdered",
           id?: string | null,
           notes?: string | null,
-          qty?: string | null,
+          qty?: number | null,
           price?: number | null,
           status?: Status | null,
           name?: string | null,
+          category?: string | null,
+          remaing?: number | null,
         } | null > | null,
+        paymentId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1179,6 +1208,7 @@ export type UpdateTableMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    currentOrder?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1212,11 +1242,14 @@ export type DeleteTableMutation = {
           __typename: "ProductsOrdered",
           id?: string | null,
           notes?: string | null,
-          qty?: string | null,
+          qty?: number | null,
           price?: number | null,
           status?: Status | null,
           name?: string | null,
+          category?: string | null,
+          remaing?: number | null,
         } | null > | null,
+        paymentId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -1226,6 +1259,7 @@ export type DeleteTableMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    currentOrder?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1251,11 +1285,14 @@ export type CreateOrderMutation = {
       __typename: "ProductsOrdered",
       id?: string | null,
       notes?: string | null,
-      qty?: string | null,
+      qty?: number | null,
       price?: number | null,
       status?: Status | null,
       name?: string | null,
+      category?: string | null,
+      remaing?: number | null,
     } | null > | null,
+    paymentId?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1281,11 +1318,14 @@ export type UpdateOrderMutation = {
       __typename: "ProductsOrdered",
       id?: string | null,
       notes?: string | null,
-      qty?: string | null,
+      qty?: number | null,
       price?: number | null,
       status?: Status | null,
       name?: string | null,
+      category?: string | null,
+      remaing?: number | null,
     } | null > | null,
+    paymentId?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1311,11 +1351,14 @@ export type DeleteOrderMutation = {
       __typename: "ProductsOrdered",
       id?: string | null,
       notes?: string | null,
-      qty?: string | null,
+      qty?: number | null,
       price?: number | null,
       status?: Status | null,
       name?: string | null,
+      category?: string | null,
+      remaing?: number | null,
     } | null > | null,
+    paymentId?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1549,6 +1592,78 @@ export type DeleteProductIngredientMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+  } | null,
+};
+
+export type GetDiscountsQueryVariables = {
+  id: string,
+};
+
+export type GetDiscountsQuery = {
+  getDiscounts?:  {
+    __typename: "Discounts",
+    id: string,
+    nam?: string | null,
+    code?: string | null,
+    percentage?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListDiscountsQueryVariables = {
+  filter?: ModelDiscountsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListDiscountsQuery = {
+  listDiscounts?:  {
+    __typename: "ModelDiscountsConnection",
+    items:  Array< {
+      __typename: "Discounts",
+      id: string,
+      nam?: string | null,
+      code?: string | null,
+      percentage?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncDiscountsQueryVariables = {
+  filter?: ModelDiscountsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncDiscountsQuery = {
+  syncDiscounts?:  {
+    __typename: "ModelDiscountsConnection",
+    items:  Array< {
+      __typename: "Discounts",
+      id: string,
+      nam?: string | null,
+      code?: string | null,
+      percentage?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -1997,11 +2112,14 @@ export type GetTableQuery = {
           __typename: "ProductsOrdered",
           id?: string | null,
           notes?: string | null,
-          qty?: string | null,
+          qty?: number | null,
           price?: number | null,
           status?: Status | null,
           name?: string | null,
+          category?: string | null,
+          remaing?: number | null,
         } | null > | null,
+        paymentId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2011,6 +2129,7 @@ export type GetTableQuery = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    currentOrder?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2043,6 +2162,7 @@ export type ListTablesQuery = {
           total?: number | null,
           status?: Status | null,
           tableID: string,
+          paymentId?: string | null,
           createdAt: string,
           updatedAt: string,
           _version: number,
@@ -2052,6 +2172,7 @@ export type ListTablesQuery = {
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
+      currentOrder?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2088,6 +2209,7 @@ export type SyncTablesQuery = {
           total?: number | null,
           status?: Status | null,
           tableID: string,
+          paymentId?: string | null,
           createdAt: string,
           updatedAt: string,
           _version: number,
@@ -2097,6 +2219,7 @@ export type SyncTablesQuery = {
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
+      currentOrder?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2124,11 +2247,14 @@ export type GetOrderQuery = {
       __typename: "ProductsOrdered",
       id?: string | null,
       notes?: string | null,
-      qty?: string | null,
+      qty?: number | null,
       price?: number | null,
       status?: Status | null,
       name?: string | null,
+      category?: string | null,
+      remaing?: number | null,
     } | null > | null,
+    paymentId?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -2157,11 +2283,14 @@ export type ListOrdersQuery = {
         __typename: "ProductsOrdered",
         id?: string | null,
         notes?: string | null,
-        qty?: string | null,
+        qty?: number | null,
         price?: number | null,
         status?: Status | null,
         name?: string | null,
+        category?: string | null,
+        remaing?: number | null,
       } | null > | null,
+      paymentId?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2194,11 +2323,14 @@ export type SyncOrdersQuery = {
         __typename: "ProductsOrdered",
         id?: string | null,
         notes?: string | null,
-        qty?: string | null,
+        qty?: number | null,
         price?: number | null,
         status?: Status | null,
         name?: string | null,
+        category?: string | null,
+        remaing?: number | null,
       } | null > | null,
+      paymentId?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -2406,8 +2538,49 @@ export type SyncProductIngredientsQuery = {
   } | null,
 };
 
-export type OnCreateIngredientSubscriptionVariables = {
-  filter?: ModelSubscriptionIngredientFilterInput | null,
+export type OnCreateDiscountsSubscription = {
+  onCreateDiscounts?:  {
+    __typename: "Discounts",
+    id: string,
+    nam?: string | null,
+    code?: string | null,
+    percentage?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateDiscountsSubscription = {
+  onUpdateDiscounts?:  {
+    __typename: "Discounts",
+    id: string,
+    nam?: string | null,
+    code?: string | null,
+    percentage?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteDiscountsSubscription = {
+  onDeleteDiscounts?:  {
+    __typename: "Discounts",
+    id: string,
+    nam?: string | null,
+    code?: string | null,
+    percentage?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
 };
 
 export type OnCreateIngredientSubscription = {
@@ -2465,10 +2638,6 @@ export type OnCreateIngredientSubscription = {
   } | null,
 };
 
-export type OnUpdateIngredientSubscriptionVariables = {
-  filter?: ModelSubscriptionIngredientFilterInput | null,
-};
-
 export type OnUpdateIngredientSubscription = {
   onUpdateIngredient?:  {
     __typename: "Ingredient",
@@ -2522,10 +2691,6 @@ export type OnUpdateIngredientSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnDeleteIngredientSubscriptionVariables = {
-  filter?: ModelSubscriptionIngredientFilterInput | null,
 };
 
 export type OnDeleteIngredientSubscription = {
@@ -2583,10 +2748,6 @@ export type OnDeleteIngredientSubscription = {
   } | null,
 };
 
-export type OnCreateCategorySubscriptionVariables = {
-  filter?: ModelSubscriptionCategoryFilterInput | null,
-};
-
 export type OnCreateCategorySubscription = {
   onCreateCategory?:  {
     __typename: "Category",
@@ -2622,10 +2783,6 @@ export type OnCreateCategorySubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnUpdateCategorySubscriptionVariables = {
-  filter?: ModelSubscriptionCategoryFilterInput | null,
 };
 
 export type OnUpdateCategorySubscription = {
@@ -2665,10 +2822,6 @@ export type OnUpdateCategorySubscription = {
   } | null,
 };
 
-export type OnDeleteCategorySubscriptionVariables = {
-  filter?: ModelSubscriptionCategoryFilterInput | null,
-};
-
 export type OnDeleteCategorySubscription = {
   onDeleteCategory?:  {
     __typename: "Category",
@@ -2704,10 +2857,6 @@ export type OnDeleteCategorySubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnCreateProductSubscriptionVariables = {
-  filter?: ModelSubscriptionProductFilterInput | null,
 };
 
 export type OnCreateProductSubscription = {
@@ -2768,10 +2917,6 @@ export type OnCreateProductSubscription = {
   } | null,
 };
 
-export type OnUpdateProductSubscriptionVariables = {
-  filter?: ModelSubscriptionProductFilterInput | null,
-};
-
 export type OnUpdateProductSubscription = {
   onUpdateProduct?:  {
     __typename: "Product",
@@ -2828,10 +2973,6 @@ export type OnUpdateProductSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnDeleteProductSubscriptionVariables = {
-  filter?: ModelSubscriptionProductFilterInput | null,
 };
 
 export type OnDeleteProductSubscription = {
@@ -2892,10 +3033,6 @@ export type OnDeleteProductSubscription = {
   } | null,
 };
 
-export type OnCreateTableSubscriptionVariables = {
-  filter?: ModelSubscriptionTableFilterInput | null,
-};
-
 export type OnCreateTableSubscription = {
   onCreateTable?:  {
     __typename: "Table",
@@ -2916,11 +3053,14 @@ export type OnCreateTableSubscription = {
           __typename: "ProductsOrdered",
           id?: string | null,
           notes?: string | null,
-          qty?: string | null,
+          qty?: number | null,
           price?: number | null,
           status?: Status | null,
           name?: string | null,
+          category?: string | null,
+          remaing?: number | null,
         } | null > | null,
+        paymentId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2930,16 +3070,13 @@ export type OnCreateTableSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    currentOrder?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnUpdateTableSubscriptionVariables = {
-  filter?: ModelSubscriptionTableFilterInput | null,
 };
 
 export type OnUpdateTableSubscription = {
@@ -2962,11 +3099,14 @@ export type OnUpdateTableSubscription = {
           __typename: "ProductsOrdered",
           id?: string | null,
           notes?: string | null,
-          qty?: string | null,
+          qty?: number | null,
           price?: number | null,
           status?: Status | null,
           name?: string | null,
+          category?: string | null,
+          remaing?: number | null,
         } | null > | null,
+        paymentId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -2976,16 +3116,13 @@ export type OnUpdateTableSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    currentOrder?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnDeleteTableSubscriptionVariables = {
-  filter?: ModelSubscriptionTableFilterInput | null,
 };
 
 export type OnDeleteTableSubscription = {
@@ -3008,11 +3145,14 @@ export type OnDeleteTableSubscription = {
           __typename: "ProductsOrdered",
           id?: string | null,
           notes?: string | null,
-          qty?: string | null,
+          qty?: number | null,
           price?: number | null,
           status?: Status | null,
           name?: string | null,
+          category?: string | null,
+          remaing?: number | null,
         } | null > | null,
+        paymentId?: string | null,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -3022,16 +3162,13 @@ export type OnDeleteTableSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    currentOrder?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnCreateOrderSubscriptionVariables = {
-  filter?: ModelSubscriptionOrderFilterInput | null,
 };
 
 export type OnCreateOrderSubscription = {
@@ -3046,21 +3183,20 @@ export type OnCreateOrderSubscription = {
       __typename: "ProductsOrdered",
       id?: string | null,
       notes?: string | null,
-      qty?: string | null,
+      qty?: number | null,
       price?: number | null,
       status?: Status | null,
       name?: string | null,
+      category?: string | null,
+      remaing?: number | null,
     } | null > | null,
+    paymentId?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnUpdateOrderSubscriptionVariables = {
-  filter?: ModelSubscriptionOrderFilterInput | null,
 };
 
 export type OnUpdateOrderSubscription = {
@@ -3075,21 +3211,20 @@ export type OnUpdateOrderSubscription = {
       __typename: "ProductsOrdered",
       id?: string | null,
       notes?: string | null,
-      qty?: string | null,
+      qty?: number | null,
       price?: number | null,
       status?: Status | null,
       name?: string | null,
+      category?: string | null,
+      remaing?: number | null,
     } | null > | null,
+    paymentId?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnDeleteOrderSubscriptionVariables = {
-  filter?: ModelSubscriptionOrderFilterInput | null,
 };
 
 export type OnDeleteOrderSubscription = {
@@ -3104,21 +3239,20 @@ export type OnDeleteOrderSubscription = {
       __typename: "ProductsOrdered",
       id?: string | null,
       notes?: string | null,
-      qty?: string | null,
+      qty?: number | null,
       price?: number | null,
       status?: Status | null,
       name?: string | null,
+      category?: string | null,
+      remaing?: number | null,
     } | null > | null,
+    paymentId?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnCreateProductIngredientSubscriptionVariables = {
-  filter?: ModelSubscriptionProductIngredientFilterInput | null,
 };
 
 export type OnCreateProductIngredientSubscription = {
@@ -3192,10 +3326,6 @@ export type OnCreateProductIngredientSubscription = {
   } | null,
 };
 
-export type OnUpdateProductIngredientSubscriptionVariables = {
-  filter?: ModelSubscriptionProductIngredientFilterInput | null,
-};
-
 export type OnUpdateProductIngredientSubscription = {
   onUpdateProductIngredient?:  {
     __typename: "ProductIngredient",
@@ -3265,10 +3395,6 @@ export type OnUpdateProductIngredientSubscription = {
     _deleted?: boolean | null,
     _lastChangedAt: number,
   } | null,
-};
-
-export type OnDeleteProductIngredientSubscriptionVariables = {
-  filter?: ModelSubscriptionProductIngredientFilterInput | null,
 };
 
 export type OnDeleteProductIngredientSubscription = {

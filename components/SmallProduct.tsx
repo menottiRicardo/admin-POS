@@ -14,7 +14,7 @@ const SmallProduct = ({
   notes,
 }: {
   id: string;
-  qty: string;
+  qty: number;
   notes: string;
 }) => {
   const products = useRecoilValue(ResProducts);
@@ -26,25 +26,25 @@ const SmallProduct = ({
   );
 
   const addOne = async () => {
-    const newQty = parseInt(quantity) + 1;
-    setQuantity(newQty.toString());
-    await updateProductMore(newQty.toString());
+    const newQty = quantity + 1;
+    setQuantity(newQty);
+    await updateProductMore(newQty);
   };
 
   const setLess = async () => {
-    if (parseInt(quantity) === 0) return;
-    const newQty = parseInt(quantity) - 1;
-    setQuantity(newQty.toString());
-    await updateProduct(newQty.toString());
+    if (quantity === 0) return;
+    const newQty = quantity - 1;
+    setQuantity(newQty);
+    await updateProduct(newQty);
   };
 
-  const updateProduct = async (qty: string) => {
+  const updateProduct = async (qty: number) => {
     console.log(currentOrder)
     const newProductList: any = currentOrder.products?.map((prod) => {
       if (prod?.id !== product.id) {
         return prod;
       }
-      if (qty === "0") {
+      if (qty === 0) {
         return undefined;
       }
       const updated = {
@@ -65,7 +65,7 @@ const SmallProduct = ({
     );
   };
 
-  const updateProductMore = async (qty: string) => {
+  const updateProductMore = async (qty: number) => {
     const newProductList = currentOrder.products?.map((prod) => {
       if (prod?.id !== product.id) {
         return prod;

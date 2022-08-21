@@ -7,6 +7,7 @@ import Amplify from "aws-amplify";
 import config from "../src/aws-exports";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+import Head from "next/head";
 Amplify.configure({ ...config, srr: true });
 
 type NextPageWithLayout = NextPage & {
@@ -22,7 +23,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <Authenticator signUpAttributes={["phone_number"]}>
       {({ signOut, user }) => (
-        <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
+        <RecoilRoot>
+          <Head>
+            <title>Admin</title>
+            <link rel="manifest" href="/manifest.json" />
+            <link rel="apple-touch-icon" href="/icon-512x512.png" />
+            <link rel="icon" href="/icon-512x512.png" />
+            <meta name="theme-color" content="#fff" />
+          </Head>
+          {getLayout(<Component {...pageProps} />)}
+        </RecoilRoot>
       )}
     </Authenticator>
   );
